@@ -8,6 +8,7 @@ public class Reservation {
     private final Room room;
     private final double totalPrice;
     private final String reservationID;
+    private String discountCode;
 
     /**
      * Constructs a new Reservation with the specified details.
@@ -17,13 +18,14 @@ public class Reservation {
      * @param checkOutDate The check-out date.
      * @param room The room being reserved.
      */
-    public Reservation(String guestName, int checkInDate, int checkOutDate, Room room){
+    public Reservation(String guestName, int checkInDate, int checkOutDate, Room room, String discountCode){
         this.guestName = guestName;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.room = room;
         this.totalPrice = calculateTotalPrice();  // Calculate the total price of the reservation
-        this.reservationID = generateReservationID();  // Generate a unique reservation ID
+        this.reservationID = generateReservationID();  // Generate a unique reservation ID  
+        this.discountCode = discountCode;
     }
 
     /**
@@ -46,7 +48,22 @@ public class Reservation {
      */
     private double calculateTotalPrice() {
         int totalDays = checkOutDate - checkInDate;  // Calculate the number of days for the stay
-        return totalDays * room.getBasePrice();  // Multiply the number of days by the room's base price
+        double price = 0;
+
+       
+        for (int date = checkInDate; date < checkOutDate; date++) {                     // Loop from check-in date to the day before check-out date
+        price += room.getRoomPrice() * room.getHotel().getDatePriceModifier(date);      // Add the price for each day
+    }
+        if ("I_WORK_HERE".equals(discountCode)) {
+            price *= 0.9; // 10% discount
+        } else if ("STAY4_GET1".equals(discountCode) && totalDays >= 5) {
+            price -= room.getRoomPrice(); // First day free
+        } else if ("PAYDAY".equals(discountCode) && (checkInDate <= 15 && checkOutDate > 15 || checkInDate <= 30 && checkOutDate > 30)) {
+            price *= 0.93; // 7% discount
+        }
+
+
+        return price;               // Return the final price
     }
 
     /**
