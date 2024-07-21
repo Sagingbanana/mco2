@@ -4,15 +4,18 @@ import java.util.ArrayList;
  * Represents a room in a hotel.
  */
 public class Room {
+    
+    public enum RoomType {
+        STANDARD, DELUXE, EXECUTIVE
+    }
     private final String name;
     private double basePrice;
     private String status;
     private final ArrayList<Reservation> reservationsList;
     private RoomType roomType;
-
-    public enum RoomType {
-        STANDARD, DELUXE, EXECUTIVE
-    }
+    private Hotel hotel;
+  
+    
 
     /**
      * Constructs a new Room with the specified name.
@@ -25,6 +28,7 @@ public class Room {
         this.status = "Available for booking"; // Initial status of the room
         this.reservationsList = new ArrayList<>(); // Initialize the list of reservations
         this.roomType = roomType;
+        this.hotel = hotel; 
     }
 
     /**
@@ -78,6 +82,14 @@ public class Room {
         return name;
     }
 
+    /**
+     * Gets the base price of the room.
+     *
+     * @return The base price of the room.
+     */
+    public double getBasePrice() {
+        return basePrice;
+    }
 
     /**
      * Gets the price of the room depending on the roomType.
@@ -113,5 +125,8 @@ public class Room {
         return reservationsList;
     }
 
+        public Hotel getHotel() {
+        return hotel; // Return the associated Hotel
+    }
 
 }
