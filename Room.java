@@ -8,6 +8,7 @@ public class Room {
     private double basePrice;
     private String status;
     private final ArrayList<Reservation> reservationsList;
+    private String type;
 
     /**
      * Constructs a new Room with the specified name.
@@ -19,6 +20,7 @@ public class Room {
         this.basePrice = 1299.0; // Default base price for the room
         this.status = "Available for booking"; // Initial status of the room
         this.reservationsList = new ArrayList<>(); // Initialize the list of reservations
+        this.type = type;
     }
 
     /**
@@ -73,12 +75,19 @@ public class Room {
     }
 
     /**
-     * Gets the base price of the room.
+     * Gets the base price of the room depending on the room type
      *
      * @return The base price of the room.
      */
-    public double getBasePrice() {
-        return basePrice;
+    public double getPrice() {
+        switch (type) {
+            case "Deluxe":
+                return basePrice * 1.20;
+            case "Executive":
+                return basePrice * 1.35;
+            default:
+                return basePrice;
+        }
     }
 
     /**
@@ -97,5 +106,9 @@ public class Room {
      */
     public ArrayList<Reservation> getReservationsList() {
         return reservationsList;
+    }
+
+    public String getType() {
+        return type;
     }
 }
