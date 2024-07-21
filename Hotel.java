@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.List;
+
+import Room.RoomType;
 
 /**
  * Represents a Hotel with rooms and reservations.
@@ -7,6 +10,7 @@ public class Hotel {
     private String name;
     private final ArrayList<Room> roomsList;
     private final ArrayList<Reservation> reservationsList;
+    private ArrayList<Double> datePriceModifiers;
 
     /**
      * Constructs a new Hotel with the specified name.
@@ -17,6 +21,10 @@ public class Hotel {
         this.name = name;
         this.roomsList = new ArrayList<>();
         this.reservationsList = new ArrayList<>();
+        this.datePriceModifiers = new ArrayList<>(31);
+            for (int i = 0; i < 31; i++) {
+                datePriceModifiers.add(1.0); // Initialize all days with default modifier of 100% of the base price (1.0) for all 31 days
+            }
     }
 
     /**
@@ -25,7 +33,7 @@ public class Hotel {
      * @param nRoomsToCreate The number of rooms to create.
      * @return true if rooms were successfully added, false otherwise.
      */
-    public boolean addRoom(int nRoomsToCreate) {
+    public boolean addRoom(int nRoomsToCreate, RoomType roomType) {
         int existingRooms = roomsList.size();
         int maxRooms = 50;
 
@@ -38,7 +46,7 @@ public class Hotel {
                 int sum = floorNumber * 100 + roomOnFloor;
 
                 String roomName = Integer.toString(sum);
-                roomsList.add(new Room(roomName));
+                roomsList.add(new Room(roomName, roomType));
             }
             return true; // Rooms successfully added
         }
@@ -218,4 +226,27 @@ public class Hotel {
     public ArrayList<Reservation> getReservationsList() {
         return reservationsList;
     }
+
+    public void setDatePriceModifier(int date, double modifier) {
+        if (date >= 1 && date <= 31 && modifier >= 0.5 && modifier <= 1.5) {
+            datePriceModifiers.set(date - 1, modifier);
+        }
+    }
+
+    public double getDatePriceModifier(int date) {
+        if (date >= 1 && date <= 31) {
+            return datePriceModifiers.get(date - 1);
+        }
+        return 1.0;
+    }
+
+    public List<Room> getRoomsByType(RoomType type) {
+    List<Room> filteredRooms = new ArrayList<>();   // Create a new list to store rooms that match the specified type
+    for (Room room : roomsList) {       /// loop through each room in the list of rooms
+        if (room.getRoomType() == type) {   // if it matches, add to filteredRooms list
+            filteredRooms.add(room);
+        }
+    }
+    return filteredRooms;   // Return the list of rooms that match the specified type
+}
 }
