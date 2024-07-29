@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+
 
 /**
  * Represents a room in a hotel.
@@ -10,14 +12,16 @@ public class Room {
     private final ArrayList<Reservation> reservationsList;
 
     /**
-     * Constructs a new Room with the specified name.
+     * Constructs a new Room with the specified name and type.
      *
      * @param name The name of the room.
+     * @param type The type of the room
      */
-    public Room(String name) {
+    public Room(String name, RoomType type) {
         this.name = name;
         this.basePrice = 1299.0; // Default base price for the room
         this.status = "Available for booking"; // Initial status of the room
+        this.type = type;
         this.reservationsList = new ArrayList<>(); // Initialize the list of reservations
     }
 
@@ -55,7 +59,7 @@ public class Room {
     }
 
     /**
-     * Sets the base price for the room.
+     * Sets the base price for the room type.
      *
      * @param basePrice The base price to set.
      */
@@ -73,7 +77,7 @@ public class Room {
     }
 
     /**
-     * Gets the base price of the room.
+     * Gets the base price of a room.
      *
      * @return The base price of the room.
      */
@@ -98,4 +102,29 @@ public class Room {
     public ArrayList<Reservation> getReservationsList() {
         return reservationsList;
     }
+
+    /**
+     * Enum representing the type of room
+     */
+    public enum RoomType{
+        STANDARD(1.0),
+        DELUXE(1.2),
+        EXECUTIVE(1.35);
+
+        private final double priceMultiplier;
+
+        RoomType(double priceMultiplier) {
+            this.priceMultiplier = priceMultiplier;
+        }
+
+        /**
+         * Gets the rate at which the base price is multiplied for the room type.
+         *
+         * @return The price multiplier.
+         */
+        public double getPriceMultiplier() {
+            return priceMultiplier;
+        }
+    }
 }
+
