@@ -186,12 +186,11 @@ public class Hotel {
     }
 
     /**
-     * Calculates the total earnings from all reservations.
+     * Calculates the total earnings from all reservations. </p>
      *
      * This method iterates through the list of reservations and sums up the total
-     * price of each reservation
-     * to calculate the total earnings for the hotel. If there are no reservations,
-     * it returns 0.0.
+     * price of each reservation to calculate the total earnings for the hotel.
+     * If there are no reservations, it returns 0.0.
      *
      * @return The total earnings from all reservations.
      */

@@ -17,10 +17,9 @@ public class HotelReservationSystem {
      * Adds a new hotel to the system if it does not already exist.
      *
      * @param hotelName The name of the hotel to be added.
-     * @param numRooms The number of rooms to be added.
      * @return true if the hotel is added, false otherwise.
      */
-    public boolean addHotel(String hotelName, int numRooms) {
+    public boolean addHotel(String hotelName) {
         // Check if the hotel already exists
         for (Hotel hotel : hotelList) {
             if (hotel.getName().equalsIgnoreCase(hotelName)) {
@@ -40,7 +39,6 @@ public class HotelReservationSystem {
         // Add new hotel
         Hotel newHotel = new Hotel(hotelName);
         hotelList.add(newHotel);
-        hotelList.get(hotelList.size() - 1).addRoom(numRooms, Room.RoomType.STANDARD); // Add one room to the new hotel
         return true;
     }
 
@@ -71,6 +69,41 @@ public class HotelReservationSystem {
         // Update hotel name
         hotelList.get(hotelList.indexOf(hotel)).setName(newHotelName);
         return true;
+    }
+
+    /**
+     * Adds rooms to the specified hotel with the given room type.
+     *
+     * @param hotel          The hotel to add rooms to.
+     * @param nRoomsToCreate The number of rooms to create.
+     * @param type           The type of rooms to create.
+     * @return true if rooms were successfully added, false otherwise.
+     */
+    public boolean addRoomsToHotel(Hotel hotel, int nRoomsToCreate, Room.RoomType type) {
+        return hotel.addRoom(nRoomsToCreate, type);
+    }
+
+    /**
+     * Sets the price modifier for a specific date in the specified hotel.
+     *
+     * @param hotel    The hotel to set the modifier for.
+     * @param date     The date to set the modifier for.
+     * @param modifier The price modifier (e.g., 0.9 for 90%, 1.1 for 110%).
+     */
+    public void setHotelDatePriceModifier(Hotel hotel, int date, double modifier) {
+        hotel.setDatePriceModifier(date, modifier);
+    }
+
+    /**
+     * Updates the base price for rooms of a specific type in the specified hotel.
+     *
+     * @param hotel        The hotel to update the base price for.
+     * @param newBasePrice The new base price to set.
+     * @param type         The type of rooms to update.
+     * @return true if the base price was successfully updated, false otherwise.
+     */
+    public boolean updateHotelRoomBasePrice(Hotel hotel, double newBasePrice, Room.RoomType type) {
+        return hotel.updateBasePrice(newBasePrice, type);
     }
 
     /**
