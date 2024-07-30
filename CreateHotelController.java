@@ -29,7 +29,7 @@ public class CreateHotelController {
     private void createHotel() {
         String hotelName = view.getHotelNameField().getText().trim();
         if (hotelName.isEmpty() || !model.isHotelNameValid(hotelName)) {
-            view.setMessage("<html>Invalid hotel name. It must be alphanumeric <br> and cannot start with a number. Try again.");
+            view.setMessage("<html>Hotel name cannot start with a number. <br>Try again.");
         } else {
             if (model.addHotel(hotelName)) {
                 view.setMessage("Hotel created successfully!");
