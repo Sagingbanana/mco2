@@ -4,39 +4,51 @@ import java.awt.event.ActionListener;
 
 public class MainMenuController {
     private MainMenuView view;
-    private HotelReservationSystem model;
+    private MainMenuModel model;
 
-    public MainMenuController(MainMenuView view, HotelReservationSystem model) {
+    public MainMenuController(MainMenuView view, MainMenuModel model) {
         this.view = view;
         this.model = model;
 
-        this.view.getCreateHotelButton().addActionListener(new CreateHotelListener());
-        this.view.getViewHotelButton().addActionListener(new ViewHotelListener());
-        this.view.getManageHotelButton().addActionListener(new ManageHotelListener());
-        this.view.getSimulateBookingButton().addActionListener(new SimulateBookingListener());
+        // Initialize the view with the number of hotels
+        updateHotelCount();
+
+        // Add action listeners to buttons
+        this.view.getManageHotelsButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                manageHotels();
+            }
+        });
+
+        this.view.getCreateReservationButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createReservation();
+            }
+        });
     }
 
-    class CreateHotelListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            //implement functionality
+    private void manageHotels() {
+        // Placeholder for manage hotels logic
+        System.out.println("Manage Hotels button clicked");
+    }
+
+    private void createReservation() {
+        if (model.areThereNoHotels()) {
+            // Display an alert that no hotels are available
+            JOptionPane.showMessageDialog(view, "No hotels available.", "Reservation Error", JOptionPane.ERROR_MESSAGE);
+        } else if (model.areThereNoAvailableRooms()) {
+            // Display an alert that no rooms are available
+            JOptionPane.showMessageDialog(view, "No rooms available.", "Reservation Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Create and show the reservation window
+            CreateReservationView reservationView = new CreateReservationView(view);
+            reservationView.setVisible(true);
         }
     }
 
-    class ViewHotelListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            //implement functionality
-        }
-    }
-
-    class ManageHotelListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            //implement functionality
-        }
-    }
-
-    class SimulateBookingListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            //implement functionality
-        }
+    private void updateHotelCount() {
+        view.setHotelCount(model.getNumberOfOperatingHotels());
     }
 }
