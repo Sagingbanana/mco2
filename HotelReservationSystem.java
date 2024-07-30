@@ -32,7 +32,7 @@ public class HotelReservationSystem {
             return false;
         }
 
-        if (!hotelName.matches(".*[a-zA-Z].*")) {
+        if (!hotelName.matches("^[a-zA-Z][a-zA-Z0-9]*$")) {
             return false;
         }
 
