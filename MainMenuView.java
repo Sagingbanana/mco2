@@ -35,7 +35,7 @@ public class MainMenuView extends JFrame {
         manageHotelsButton = new JButton("Manage Hotels");
         createReservationButton = new JButton("Create a Reservation");
         createHotelButton = new JButton("Create a Hotel");
-        hotelCountLabel = new JLabel("There are 0 hotels currently operating.", SwingConstants.CENTER); // Initial text
+        hotelCountLabel = new JLabel("There are 1 hotels currently operating.", SwingConstants.CENTER); // Initial text
 
         // Set layout and add components
         setLayout(new BorderLayout());

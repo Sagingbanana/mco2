@@ -27,6 +27,13 @@ public class MainMenuController {
                 createReservation();
             }
         });
+
+        this.view.getCreateHotelButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createHotel(model.getHotelReservationSystem());
+            }
+        });
     }
 
     private void manageHotels() {
@@ -46,6 +53,14 @@ public class MainMenuController {
             CreateReservationView reservationView = new CreateReservationView(view);
             reservationView.setVisible(true);
         }
+    }
+
+    private void createHotel(HotelReservationSystem hrs) {
+        CreateHotelModel createHotelModel = new CreateHotelModel(hrs);
+        CreateHotelView createHotelView = new CreateHotelView();
+        CreateHotelController createHotelController = new CreateHotelController(createHotelView, createHotelModel, view);
+        createHotelView.setVisible(true);
+        view.setVisible(false);
     }
 
     private void updateHotelCount() {

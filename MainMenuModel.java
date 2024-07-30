@@ -7,6 +7,10 @@ public class MainMenuModel {
         this.hotelReservationSystem = hotelReservationSystem;
     }
 
+    public HotelReservationSystem getHotelReservationSystem() {
+        return hotelReservationSystem;
+    }
+
     /**
      * Returns the number of currently operating hotels.
      *
