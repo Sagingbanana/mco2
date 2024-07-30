@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 /**
@@ -7,6 +6,7 @@ import java.util.HashMap;
  */
 public class Room {
     private final String name;
+    private final RoomType type;
     private double basePrice;
     private String status;
     private final ArrayList<Reservation> reservationsList;
@@ -85,6 +85,15 @@ public class Room {
         return basePrice;
     }
 
+    /**
+     * Gets the type of the room.
+     *
+     * @return The type of the room.
+     */
+    public RoomType getType() {
+        return type;
+    }
+    
     /**
      * Gets the status of the room.
      *
