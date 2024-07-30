@@ -37,19 +37,23 @@ public class MainMenuController {
     }
 
     private void manageHotels() {
-        // Placeholder for manage hotels logic
-        System.out.println("Manage Hotels button clicked");
+        if (model.areThereNoHotels()) {
+            JOptionPane.showMessageDialog(view, "No hotels available to manage.", "Manage Hotels Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            SelectHotelModel selectHotelModel = new SelectHotelModel(model.getHotelReservationSystem());
+            SelectHotelView selectHotelView = new SelectHotelView();
+            SelectHotelController selectHotelController = new SelectHotelController(selectHotelView, selectHotelModel, view);
+            selectHotelView.setVisible(true);
+            view.setVisible(false);
+        }
     }
 
     private void createReservation() {
         if (model.areThereNoHotels()) {
-            // Display an alert that no hotels are available
             JOptionPane.showMessageDialog(view, "No hotels available.", "Reservation Error", JOptionPane.ERROR_MESSAGE);
         } else if (model.areThereNoAvailableRooms()) {
-            // Display an alert that no rooms are available
             JOptionPane.showMessageDialog(view, "No rooms available.", "Reservation Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            // Create and show the reservation window
             CreateReservationView reservationView = new CreateReservationView(view);
             reservationView.setVisible(true);
         }
