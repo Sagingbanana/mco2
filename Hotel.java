@@ -47,6 +47,7 @@ public class Hotel {
      * Gets the price modifier for a specific date.
      *
      * @param date The date to get the modifier for.
+     *
      * @return The price modifier for the specified date.
      */
     public double getDatePriceModifier(int date) {
@@ -58,6 +59,7 @@ public class Hotel {
      *
      * @param room The room to calculate the price for.
      * @param date The date to calculate the price for.
+     *
      * @return The price for the specified date.
      */
     public double calculatePriceForRoomOnDate(Room room, int date) {
@@ -69,6 +71,7 @@ public class Hotel {
      *
      * @param nRoomsToCreate The number of rooms to create.
      * @param type           The type of rooms to create.
+     *
      * @return true if rooms were successfully added, false otherwise.
      */
     public boolean addRoom(int nRoomsToCreate, Room.RoomType type) {
@@ -96,6 +99,7 @@ public class Hotel {
      * Removes a room from the hotel if it has no reservations.
      *
      * @param room The room to remove.
+     *
      * @return true if the room was successfully removed, false otherwise.
      */
     public boolean removeRoom(Room room) {
@@ -113,6 +117,7 @@ public class Hotel {
      *
      * @param newBasePrice The new base price to set.
      * @param type         The type of rooms to update.
+     *
      * @return true if the base price was successfully updated, false otherwise.
      */
     public boolean updateBasePrice(double newBasePrice, Room.RoomType type) {
@@ -133,6 +138,7 @@ public class Hotel {
      * @param checkInDate  The check-in date.
      * @param checkOutDate The check-out date.
      * @param room         The room to reserve.
+     *
      * @return true if the reservation was successfully created, false otherwise.
      */
     public boolean createReservation(String guestName, int checkInDate, int checkOutDate, Room room) {
@@ -144,8 +150,38 @@ public class Hotel {
         // Check if the room is available for the specified dates
         if (room.isAvailableToReserve(checkInDate, checkOutDate)) {
             // Add the reservation to the room and hotel reservation lists
-            room.getReservationsList().add(new Reservation(guestName, checkInDate, checkOutDate, room));
-            reservationsList.add(new Reservation(guestName, checkInDate, checkOutDate, room));
+            Reservation reservation = new Reservation(guestName, checkInDate, checkOutDate, room, this);
+            room.getReservationsList().add(reservation);
+            reservationsList.add(reservation);
+            room.updateStatus();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Creates a reservation for a guest in the specified room with a discount code.
+     *
+     * @param guestName    The name of the guest.
+     * @param checkInDate  The check-in date.
+     * @param checkOutDate The check-out date.
+     * @param room         The room to reserve.
+     * @param discountCode The discount code to apply.
+     *
+     * @return true if the reservation was successfully created, false otherwise.
+     */
+    public boolean createReservation(String guestName, int checkInDate, int checkOutDate, Room room, String discountCode) {
+        // Validate the check-in and check-out dates
+        if ((checkInDate < 1 || checkInDate > 30 || checkOutDate < 2 || checkOutDate > 31)
+                && checkInDate >= checkOutDate)
+            return false;
+
+        // Check if the room is available for the specified dates
+        if (room.isAvailableToReserve(checkInDate, checkOutDate)) {
+            // Add the reservation to the room and hotel reservation lists
+            Reservation reservation = new Reservation(guestName, checkInDate, checkOutDate, room, this, discountCode);
+            room.getReservationsList().add(reservation);
+            reservationsList.add(reservation);
             room.updateStatus();
             return true;
         }
@@ -156,6 +192,7 @@ public class Hotel {
      * Cancels an existing reservation.
      *
      * @param reservation The reservation to cancel.
+     *
      * @return true if the reservation was successfully cancelled, false otherwise.
      */
     public boolean cancelReservation(Reservation reservation) {
