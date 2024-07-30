@@ -40,7 +40,7 @@ public class HotelReservationSystem {
         // Add new hotel
         Hotel newHotel = new Hotel(hotelName);
         hotelList.add(newHotel);
-        hotelList.get(hotelList.size() - 1).addRoom(numRooms); // Add one room to the new hotel
+        hotelList.get(hotelList.size() - 1).addRoom(numRooms, Room.RoomType.STANDARD); // Add one room to the new hotel
         return true;
     }
 

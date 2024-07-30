@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Represents a Hotel with rooms and reservations.
@@ -7,6 +7,7 @@ public class Hotel {
     private String name;
     private final ArrayList<Room> roomsList;
     private final ArrayList<Reservation> reservationsList;
+    private final Map<Integer, Double> datePriceModifier;
 
     /**
      * Constructs a new Hotel with the specified name.
@@ -17,15 +18,60 @@ public class Hotel {
         this.name = name;
         this.roomsList = new ArrayList<>();
         this.reservationsList = new ArrayList<>();
+        this.datePriceModifier = new HashMap<>();
+        initializeDPM();
     }
 
     /**
-     * Adds a specified number of rooms to the hotel.
+     * Initializes the date price modifiers to 100% for all dates.
+     */
+    private void initializeDPM() {
+        for (int date = 1; date <= 30; date++) {
+            datePriceModifier.put(date, 1.0); // Default modifier is 100% (1.0)
+        }
+    }
+
+    /**
+     * Sets the price modifier for a specific date.
+     *
+     * @param date     The date to set the modifier for.
+     * @param modifier The price modifier (e.g., 0.9 for 90%, 1.1 for 110%).
+     */
+    public void setDatePriceModifier(int date, double modifier) {
+        if (date >= 1 && date <= 30 && modifier >= 0.5 && modifier <= 1.5) {
+            datePriceModifier.put(date, modifier);
+        }
+    }
+
+    /**
+     * Gets the price modifier for a specific date.
+     *
+     * @param date The date to get the modifier for.
+     * @return The price modifier for the specified date.
+     */
+    public double getDatePriceModifier(int date) {
+        return datePriceModifier.getOrDefault(date, 1.0);
+    }
+
+    /**
+     * Calculates the price for a room on a specific date based on the base price and the date price modifier.
+     *
+     * @param room The room to calculate the price for.
+     * @param date The date to calculate the price for.
+     * @return The price for the specified date.
+     */
+    public double calculatePriceForRoomOnDate(Room room, int date) {
+        return room.getBasePrice() * getDatePriceModifier(date) * room.getType().getPriceMultiplier();
+    }
+
+    /**
+     * Adds a specified number of rooms to the hotel with the given room type.
      *
      * @param nRoomsToCreate The number of rooms to create.
+     * @param type           The type of rooms to create.
      * @return true if rooms were successfully added, false otherwise.
      */
-    public boolean addRoom(int nRoomsToCreate) {
+    public boolean addRoom(int nRoomsToCreate, Room.RoomType type) {
         int existingRooms = roomsList.size();
         int maxRooms = 50;
 
@@ -38,7 +84,7 @@ public class Hotel {
                 int sum = floorNumber * 100 + roomOnFloor;
 
                 String roomName = Integer.toString(sum);
-                roomsList.add(new Room(roomName));
+                roomsList.add(new Room(roomName, type));
             }
             return true; // Rooms successfully added
         }
@@ -63,18 +109,19 @@ public class Hotel {
     }
 
     /**
-     * Updates the base price for all rooms in the hotel if there are no
-     * reservations.
+     * Updates the base price for all rooms in the hotel of a specific type if there are no reservations.
      *
      * @param newBasePrice The new base price to set.
+     * @param type         The type of rooms to update.
      * @return true if the base price was successfully updated, false otherwise.
      */
-    public boolean updateBasePrice(double newBasePrice) {
+    public boolean updateBasePrice(double newBasePrice, Room.RoomType type) {
         // Check if there are no reservations and the new base price is valid
-        if (!reservationsList.isEmpty() || newBasePrice < 100.0)
-            return false;
+        if (!reservationsList.isEmpty() || newBasePrice < 100.0) return false;
         for (Room room : roomsList) {
-            room.setBasePrice(newBasePrice);
+            if (room.getType() == type) {
+                room.setBasePrice(newBasePrice);
+            }
         }
         return true;
     }
