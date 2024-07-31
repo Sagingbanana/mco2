@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class CreateReservationView extends JFrame {
     private final JTextField guestNameField;
@@ -14,7 +16,7 @@ public class CreateReservationView extends JFrame {
     public CreateReservationView() {
         setTitle("Create Reservation");
         setSize(400, 350);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // Handle close operation manually
         setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -84,6 +86,23 @@ public class CreateReservationView extends JFrame {
         add(cancelButton, gbc);
 
         setLocationRelativeTo(null);  // Center the window on the screen
+
+        // Add window listener to handle close operation
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int response = JOptionPane.showConfirmDialog(
+                        CreateReservationView.this,
+                        "Are you sure you want to quit? All data will be lost.",
+                        "Confirm Exit",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE
+                );
+                if (response == JOptionPane.YES_OPTION) {
+                    System.exit(0); // Terminate the program
+                }
+            }
+        });
     }
 
     public JTextField getGuestNameField() {
@@ -124,5 +143,4 @@ public class CreateReservationView extends JFrame {
             view.setVisible(true);
         });
     }
-
 }

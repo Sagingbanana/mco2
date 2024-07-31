@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class SelectHotelView extends JFrame {
     private final JComboBox<String> hotelComboBox;
@@ -12,7 +14,7 @@ public class SelectHotelView extends JFrame {
     public SelectHotelView() {
         setTitle("Select Hotel To Manage");
         setSize(400, 300);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // Handle close operation manually
         setLocationRelativeTo(null); // Center the frame
 
         // Create components
@@ -76,6 +78,23 @@ public class SelectHotelView extends JFrame {
         centerPanel.add(messageLabel, gbc);
 
         add(centerPanel, BorderLayout.CENTER);
+
+        // Add window listener to handle close operation
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int response = JOptionPane.showConfirmDialog(
+                        SelectHotelView.this,
+                        "Are you sure you want to quit? All data will be lost.",
+                        "Confirm Exit",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE
+                );
+                if (response == JOptionPane.YES_OPTION) {
+                    System.exit(0); // Terminate the program
+                }
+            }
+        });
     }
 
     public JComboBox<String> getHotelComboBox() {
@@ -100,5 +119,12 @@ public class SelectHotelView extends JFrame {
 
     public void setMessage(String message) {
         messageLabel.setText("<html><div style='text-align: center;'>" + message + "</div></html>");
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            SelectHotelView view = new SelectHotelView();
+            view.setVisible(true);
+        });
     }
 }

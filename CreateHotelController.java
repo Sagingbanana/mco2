@@ -1,6 +1,3 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 public class CreateHotelController {
     private final CreateHotelView view;
     private final CreateHotelModel model;

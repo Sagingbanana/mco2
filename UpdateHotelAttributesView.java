@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class UpdateHotelAttributesView extends JFrame {
     private final JButton changeHotelNameButton;
@@ -15,7 +17,7 @@ public class UpdateHotelAttributesView extends JFrame {
     public UpdateHotelAttributesView(String hotelName) {
         setTitle("Update Hotel Attributes");
         setSize(850, 480); // Adjusted size to accommodate the new button
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // Handle close operation manually
         setLocationRelativeTo(null); // Center the frame
 
         // Create components
@@ -35,7 +37,6 @@ public class UpdateHotelAttributesView extends JFrame {
         JLabel hotelNameLabel = new JLabel("<html>The hotel being managed is hotel " + hotelName + ".<br><br> <center>Select an option to update:</center></html>", SwingConstants.CENTER);
 
         // Initialize the message label
-        // New JLabel for displaying messages
         JLabel messageLabel = new JLabel("", SwingConstants.CENTER);
         messageLabel.setForeground(Color.RED); // Set color for the message
 
@@ -117,6 +118,23 @@ public class UpdateHotelAttributesView extends JFrame {
         lastRowPanel.add(backToSelectionButton);
         lastRowPanel.add(backToMainMenuButton);
         add(lastRowPanel, BorderLayout.SOUTH); // Add back buttons at the bottom
+
+        // Add window listener to handle close operation
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int response = JOptionPane.showConfirmDialog(
+                        UpdateHotelAttributesView.this,
+                        "Are you sure you want to quit? All data will be lost.",
+                        "Confirm Exit",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE
+                );
+                if (response == JOptionPane.YES_OPTION) {
+                    System.exit(0); // Terminate the program
+                }
+            }
+        });
     }
 
     public JButton getChangeHotelNameButton() {
@@ -153,5 +171,12 @@ public class UpdateHotelAttributesView extends JFrame {
 
     public JButton getBackToMainMenuButton() {
         return backToMainMenuButton;
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            UpdateHotelAttributesView view = new UpdateHotelAttributesView("Sample Hotel");
+            view.setVisible(true);
+        });
     }
 }
