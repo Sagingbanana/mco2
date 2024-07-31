@@ -30,7 +30,7 @@ public class HotelInfoView extends JFrame {
                 "</html>";
 
         JLabel asciiLabel = new JLabel(asciiArt, SwingConstants.CENTER);
-        hotelNameLabel = new JLabel("<html>The hotel being managed is hotel " + hotelName + ".<br><br>Click what type of information to view:", SwingConstants.CENTER);
+        hotelNameLabel = new JLabel("<html>The hotel being managed is hotel " + hotelName + ".<br><br><center>Click what type of information to view:</center></html>", SwingConstants.CENTER);
 
         // Create buttons
         highLevelInfoButton = new JButton("High-Level Information");
