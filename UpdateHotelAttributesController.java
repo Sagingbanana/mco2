@@ -191,18 +191,18 @@ public class UpdateHotelAttributesController {
         if (model.getHrs().updateHotelRoomBasePrice(model.getHotel(), newBasePrice)) {
             JOptionPane.showMessageDialog(view, "Base price updated successfully for all rooms!");
         } else {
-            JOptionPane.showMessageDialog(view, "Failed to update base price. Please ensure the price is valid (minimum $100).", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(view, "Failed to update base price. Please ensure the price is valid (minimum PHP100).", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     // Prompt user for the new base price and validate it
     private Double promptForNewBasePrice() {
-        String newBasePriceString = JOptionPane.showInputDialog(view, "Enter the new base price for all rooms (minimum $100):");
+        String newBasePriceString = JOptionPane.showInputDialog(view, "Enter the new base price for all rooms (minimum PHP100):");
         if (newBasePriceString != null) { // User didn't cancel
             try {
                 double newBasePrice = Double.parseDouble(newBasePriceString);
                 if (newBasePrice < 100.0) {
-                    JOptionPane.showMessageDialog(view, "The base price must be at least $100.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(view, "The base price must be at least PHP100.", "Error", JOptionPane.ERROR_MESSAGE);
                     return null; // Invalid base price
                 }
                 return newBasePrice;

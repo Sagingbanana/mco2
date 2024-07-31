@@ -35,7 +35,7 @@ public class HotelInfoController {
         String hotelName = model.getHotel().getName();
         int totalRooms = model.getHotel().getRoomsList().size();
         double totalIncome = model.getTotalIncome();
-        String message = String.format("Hotel Name: %s\nTotal Number of Rooms: %d\nEstimated Monthly Earnings: $%.2f",
+        String message = String.format("Hotel Name: %s\nTotal Number of Rooms: %d\nEstimated Monthly Earnings: PHP%.2f",
                 hotelName, totalRooms, totalIncome);
         JOptionPane.showMessageDialog(view, message, "High-Level Information", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -162,7 +162,7 @@ public class HotelInfoController {
         if (selectedRoom != null) {
             for (Room room : rooms) {
                 if (room.getName().equals(selectedRoom)) {
-                    String message = String.format("Room Name: %s\nRoom Type: %s\nPrice Per Night: $%.2f\nStatus: %s",
+                    String message = String.format("Room Name: %s\nRoom Type: %s\nPrice Per Night: PHP%.2f\nStatus: %s",
                             room.getName(),
                             room.getType(),
                             room.getBasePrice() * room.getType().getPriceMultiplier(),
@@ -189,7 +189,7 @@ public class HotelInfoController {
         String selectedId = (String) reservationComboBox.getSelectedItem();
         for (Reservation reservation : reservations) {
             if (reservation.getReservationID().equals(selectedId)) {
-                String message = String.format("Guest Name: %s\nRoom Name: %s\nRoom Type: %s\nPrice Per Night: $%.2f\nTotal Price: $%.2f",
+                String message = String.format("Guest Name: %s\nRoom Name: %s\nRoom Type: %s\nPrice Per Night: PHP%.2f\nTotal Price: PHP%.2f",
                         reservation.getGuestName(),
                         reservation.getRoom().getName(),
                         reservation.getRoom().getType(),
