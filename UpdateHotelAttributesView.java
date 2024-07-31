@@ -149,38 +149,84 @@ public class UpdateHotelAttributesView extends JFrame {
     }
 
     // Getter methods for buttons to be used by controllers
+
+    /**
+     * Returns the button for changing the hotel name.
+     *
+     * @return the button for changing the hotel name
+     */
     public JButton getChangeHotelNameButton() {
         return changeHotelNameButton;
     }
 
+    /**
+     * Returns the button for adding rooms.
+     *
+     * @return the button for adding rooms
+     */
     public JButton getAddRoomsButton() {
         return addRoomsButton;
     }
 
+    /**
+     * Returns the button for removing rooms.
+     *
+     * @return the button for removing rooms
+     */
     public JButton getRemoveRoomButton() {
         return removeRoomsButton;
     }
 
+    /**
+     * Returns the button for updating the base price of rooms.
+     *
+     * @return the button for updating the base price
+     */
     public JButton getUpdateBasePriceButton() {
         return updateBasePriceButton;
     }
 
+    /**
+     * Returns the button for removing a reservation.
+     *
+     * @return the button for removing a reservation
+     */
     public JButton getRemoveReservationButton() {
         return removeReservationButton;
     }
 
+    /**
+     * Returns the button for removing the hotel.
+     *
+     * @return the button for removing the hotel
+     */
     public JButton getRemoveHotelButton() {
         return removeHotelButton;
     }
 
+    /**
+     * Returns the button for setting the date price modifier.
+     *
+     * @return the button for setting the date price modifier
+     */
     public JButton getSetDatePriceModifierButton() { // New getter method for the new button
         return setDatePriceModifierButton;
     }
 
+    /**
+     * Returns the button for going back to hotel selection.
+     *
+     * @return the button for going back to hotel selection
+     */
     public JButton getBackToSelectionButton() {
         return backToSelectionButton;
     }
 
+    /**
+     * Returns the button for returning to the main menu.
+     *
+     * @return the button for returning to the main menu
+     */
     public JButton getBackToMainMenuButton() {
         return backToMainMenuButton;
     }
