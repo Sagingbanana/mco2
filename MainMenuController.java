@@ -54,10 +54,14 @@ public class MainMenuController {
         } else if (model.areThereNoAvailableRooms()) {
             JOptionPane.showMessageDialog(view, "No rooms available.", "Reservation Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            CreateReservationView reservationView = new CreateReservationView(view);
-            reservationView.setVisible(true);
+            CreateReservationModel createReservationModel = new CreateReservationModel(model.getHotelReservationSystem());
+            CreateReservationView createReservationView = new CreateReservationView();
+            CreateReservationController createReservationController = new CreateReservationController(createReservationView, createReservationModel, view);
+            createReservationView.setVisible(true);
+            view.setVisible(false);
         }
     }
+
 
     private void createHotel(HotelReservationSystem hrs) {
         CreateHotelModel createHotelModel = new CreateHotelModel(hrs);
