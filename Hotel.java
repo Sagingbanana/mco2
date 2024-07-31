@@ -74,7 +74,15 @@ public class Hotel {
      *
      * @return true if rooms were successfully added, false otherwise.
      */
-    public boolean addRoom(int nRoomsToCreate, Room.RoomType type) {
+    /**
+     * Adds a specified number of rooms to the hotel with the given room type.
+     *
+     * @param nRoomsToCreate The number of rooms to create.
+     * @param type           The type of rooms to create.
+     *
+     * @return true if rooms were successfully added, false otherwise.
+     */
+    public boolean addRooms(int nRoomsToCreate, Room.RoomType type) {
         int existingRooms = roomsList.size();
         int maxRooms = 50;
 
@@ -86,7 +94,9 @@ public class Hotel {
                 int roomOnFloor = roomNumber % 10 == 0 ? 10 : roomNumber % 10;
                 int sum = floorNumber * 100 + roomOnFloor;
 
-                String roomName = Integer.toString(sum);
+                // Generate room name with the first letter of the room type
+                String roomTypeInitial = type.name().charAt(0) + ""; // Get first letter of the room type
+                String roomName = Integer.toString(sum) + roomTypeInitial; // Append the room type initial
                 roomsList.add(new Room(roomName, type));
             }
             return true; // Rooms successfully added
@@ -94,6 +104,7 @@ public class Hotel {
 
         return false; // Invalid number of rooms to create
     }
+
 
     /**
      * Removes a room from the hotel if it has no reservations.
