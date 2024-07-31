@@ -100,7 +100,6 @@ public class HotelReservationSystem {
      *
      * @param hotel        The hotel to update the base price for.
      * @param newBasePrice The new base price to set.
-     *
      * @return true if the base price was successfully updated, false otherwise.
      */
     public boolean updateHotelRoomBasePrice(Hotel hotel, double newBasePrice) {
