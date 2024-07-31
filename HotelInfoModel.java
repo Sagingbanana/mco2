@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class HotelInfoModel {
     private final Hotel hotel;
 
@@ -9,5 +11,31 @@ public class HotelInfoModel {
         return hotel;
     }
 
-    // Add methods for fetching specific hotel information as needed
+    public double getTotalIncome() {
+        double totalIncome = 0;
+        for (Room room : hotel.getRoomsList()) {
+            for (Reservation reservation : room.getReservationsList()) {
+                totalIncome += reservation.getTotalPrice();
+            }
+        }
+        return totalIncome;
+    }
+
+    public ArrayList<Room> getAvailableRooms(int checkInDate, int checkOutDate) {
+        ArrayList<Room> availableRooms = new ArrayList<>();
+        for (Room room : hotel.getRoomsList()) {
+            if (room.isAvailableToReserve(checkInDate, checkOutDate)) {
+                availableRooms.add(room);
+            }
+        }
+        return availableRooms;
+    }
+
+    public ArrayList<Reservation> getReservations() {
+        ArrayList<Reservation> allReservations = new ArrayList<>();
+        for (Room room : hotel.getRoomsList()) {
+            allReservations.addAll(room.getReservationsList());
+        }
+        return allReservations;
+    }
 }

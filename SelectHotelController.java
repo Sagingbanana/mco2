@@ -32,6 +32,7 @@ public class SelectHotelController {
     }
 
     private void populateHotelList() {
+        view.getHotelComboBox().removeAllItems();
         if (model.hasHotels()) {
             for (Hotel hotel : model.getHotels()) {
                 view.getHotelComboBox().addItem(hotel.getName());
@@ -40,6 +41,10 @@ public class SelectHotelController {
             view.setMessage("No hotels available.");
             view.getProceedButton().setEnabled(false);
         }
+    }
+
+    public void refreshHotelList() {
+        populateHotelList();
     }
 
     private void proceed() {
@@ -77,8 +82,7 @@ public class SelectHotelController {
 
             if (selectedHotel != null) {
                 UpdateHotelAttributesView updateView = new UpdateHotelAttributesView(selectedHotel.getName());
-                UpdateHotelAttributesModel updateModel; // Pass hrs here
-                updateModel = new UpdateHotelAttributesModel(selectedHotel, model.getHrs());
+                UpdateHotelAttributesModel updateModel = new UpdateHotelAttributesModel(selectedHotel, model.getHrs());
                 new UpdateHotelAttributesController(updateView, updateModel, this, view);
                 updateView.setVisible(true);
                 this.view.setVisible(false); // Hide the current view

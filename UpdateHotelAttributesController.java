@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class UpdateHotelAttributesController {
     private UpdateHotelAttributesView view;
@@ -32,8 +31,6 @@ public class UpdateHotelAttributesController {
                 addRoomsToHotel(); // Call the method to handle adding rooms
             }
         });
-
-
 
         this.view.getRemoveRoomButton().addActionListener(new ActionListener() {
             @Override
@@ -94,6 +91,7 @@ public class UpdateHotelAttributesController {
             // Update the hotel name in the model
             if (model.getHrs().updateHotelName(newHotelName, model.getHotel())) { // Use the passed hrs
                 JOptionPane.showMessageDialog(view, "Hotel name updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                selectHotelController.refreshHotelList(); // Refresh the hotel list in the selection view
             } else {
                 JOptionPane.showMessageDialog(view, "Failed to update hotel name. It may already exist.", "Error", JOptionPane.ERROR_MESSAGE);
             }

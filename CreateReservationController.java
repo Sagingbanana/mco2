@@ -24,7 +24,7 @@ public class CreateReservationController {
             }
         });
 
-        view.getOkButton().addActionListener(new ActionListener() {
+        view.getConfirmButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 createReservation();
@@ -41,6 +41,7 @@ public class CreateReservationController {
     }
 
     private void populateHotels() {
+        view.getHotelComboBox().addItem(null); // Add a null item for unselected state
         for (Hotel hotel : model.getAvailableHotels()) {
             view.getHotelComboBox().addItem(hotel.getName());
         }
@@ -49,6 +50,9 @@ public class CreateReservationController {
     private void populateRooms() {
         view.getRoomComboBox().removeAllItems();
         String hotelName = (String) view.getHotelComboBox().getSelectedItem();
+        if (hotelName == null || hotelName.isEmpty()) {
+            return;
+        }
         int checkInDate = Integer.parseInt(view.getCheckInDateField().getText());
         int checkOutDate = Integer.parseInt(view.getCheckOutDateField().getText());
         for (Hotel hotel : model.getAvailableHotels()) {
@@ -82,6 +86,16 @@ public class CreateReservationController {
         String roomName = (String) view.getRoomComboBox().getSelectedItem();
         String discountCode = view.getDiscountCodeField().getText().trim();
 
+        if (!guestName.matches("[a-zA-Z]+")) {
+            JOptionPane.showMessageDialog(view, "Guest name must contain only letters.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (hotelName == null || roomName == null) {
+            JOptionPane.showMessageDialog(view, "Hotel and Room must be selected.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         boolean isValidDiscountCode = discountCode.equals("I_WORK_HERE") || discountCode.equals("STAY4_GET1") || discountCode.equals("PAYDAY");
 
         for (Hotel hotel : model.getAvailableHotels()) {
@@ -112,7 +126,7 @@ public class CreateReservationController {
     }
 
     private void setupListeners() {
-        view.getGuestNameField().getDocument().addDocumentListener(new DocumentListener() {
+        DocumentListener validationListener = new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 validateInput();
@@ -127,12 +141,23 @@ public class CreateReservationController {
             public void changedUpdate(DocumentEvent e) {
                 validateInput();
             }
-        });
+        };
+
+        view.getGuestNameField().getDocument().addDocumentListener(validationListener);
+        view.getCheckInDateField().getDocument().addDocumentListener(validationListener);
+        view.getCheckOutDateField().getDocument().addDocumentListener(validationListener);
+        view.getHotelComboBox().addActionListener(e -> validateInput());
+        view.getRoomComboBox().addActionListener(e -> validateInput());
     }
 
     private void validateInput() {
         String guestName = view.getGuestNameField().getText();
-        boolean isValid = guestName.length() >= 3 && Character.isLetter(guestName.charAt(0));
-        view.getOkButton().setEnabled(isValid);
+        boolean isGuestNameValid = guestName.matches("[a-zA-Z]+");
+        boolean areDatesValid = !view.getCheckInDateField().getText().isEmpty() && !view.getCheckOutDateField().getText().isEmpty();
+        boolean isHotelSelected = view.getHotelComboBox().getSelectedItem() != null;
+        boolean isRoomSelected = view.getRoomComboBox().getSelectedItem() != null;
+
+        boolean isInputValid = isGuestNameValid && areDatesValid && isHotelSelected && isRoomSelected;
+        view.getConfirmButton().setEnabled(isInputValid);
     }
 }
