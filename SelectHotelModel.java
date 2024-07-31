@@ -15,6 +15,10 @@ public class SelectHotelModel {
         return hrs.getHotelList();
     }
 
+    public int getNumberOfOperatingHotels() {
+        return hrs.getHotelList().size();
+    }
+
     public boolean hasHotels() {
         return !getHotels().isEmpty();
     }

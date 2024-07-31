@@ -6,7 +6,7 @@ public class UpdateHotelAttributesView extends JFrame {
     private JLabel messageLabel; // New JLabel for displaying messages
     private JButton changeHotelNameButton;
     private JButton addRoomsButton;
-    private JButton removeRoomButton;
+    private JButton removeRoomsButton;
     private JButton updateBasePriceButton;
     private JButton removeReservationButton;
     private JButton removeHotelButton;
@@ -42,7 +42,7 @@ public class UpdateHotelAttributesView extends JFrame {
         // Create buttons
         changeHotelNameButton = new JButton("Change Hotel Name");
         addRoomsButton = new JButton("Add Rooms");
-        removeRoomButton = new JButton("Remove Room");
+        removeRoomsButton = new JButton("Remove Rooms");
         updateBasePriceButton = new JButton("Update Base Price");
         removeReservationButton = new JButton("Remove Reservation");
         removeHotelButton = new JButton("Remove Hotel");
@@ -54,7 +54,7 @@ public class UpdateHotelAttributesView extends JFrame {
         Dimension updateButtonSize = new Dimension(200, 40); // Fixed size for update buttons
         changeHotelNameButton.setPreferredSize(updateButtonSize);
         addRoomsButton.setPreferredSize(updateButtonSize);
-        removeRoomButton.setPreferredSize(updateButtonSize);
+        removeRoomsButton.setPreferredSize(updateButtonSize);
         updateBasePriceButton.setPreferredSize(updateButtonSize);
         removeReservationButton.setPreferredSize(updateButtonSize);
         removeHotelButton.setPreferredSize(updateButtonSize);
@@ -93,7 +93,7 @@ public class UpdateHotelAttributesView extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-        buttonPanel.add(removeRoomButton, gbc);
+        buttonPanel.add(removeRoomsButton, gbc);
 
         gbc.gridx = 1;
         buttonPanel.add(updateBasePriceButton, gbc);
@@ -132,7 +132,7 @@ public class UpdateHotelAttributesView extends JFrame {
     }
 
     public JButton getRemoveRoomButton() {
-        return removeRoomButton;
+        return removeRoomsButton;
     }
 
     public JButton getUpdateBasePriceButton() {

@@ -77,7 +77,8 @@ public class SelectHotelController {
 
             if (selectedHotel != null) {
                 UpdateHotelAttributesView updateView = new UpdateHotelAttributesView(selectedHotel.getName());
-                UpdateHotelAttributesModel updateModel = new UpdateHotelAttributesModel(selectedHotel, model.getHrs()); // Pass hrs here
+                UpdateHotelAttributesModel updateModel; // Pass hrs here
+                updateModel = new UpdateHotelAttributesModel(selectedHotel, model.getHrs());
                 new UpdateHotelAttributesController(updateView, updateModel, this, view);
                 updateView.setVisible(true);
                 this.view.setVisible(false); // Hide the current view
@@ -88,5 +89,6 @@ public class SelectHotelController {
     public void goBackToMainMenu() {
         view.dispose();
         mainMenuView.setVisible(true);
+        mainMenuView.setHotelCount(model.getNumberOfOperatingHotels());
     }
 }
