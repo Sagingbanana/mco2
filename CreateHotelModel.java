@@ -6,8 +6,10 @@ public class CreateHotelModel {
     }
 
     public boolean isHotelNameValid(String hotelName) {
-        return hotelName.matches("^[A-Za-z][A-Za-z0-9]*$");
+        // Check if the hotel name is not empty and starts with an alphabetic character
+        return !hotelName.isEmpty() && Character.isLetter(hotelName.charAt(0));
     }
+
 
     public boolean addHotel(String hotelName) {
         return hotelReservationSystem.addHotel(hotelName);
