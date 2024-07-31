@@ -111,11 +111,11 @@ public class HotelReservationSystem {
      *
      * @param hotel        The hotel to update the base price for.
      * @param newBasePrice The new base price to set.
-     * @param type         The type of rooms to update.
+     *
      * @return true if the base price was successfully updated, false otherwise.
      */
-    public boolean updateHotelRoomBasePrice(Hotel hotel, double newBasePrice, Room.RoomType type) {
-        return hotel.updateBasePrice(newBasePrice, type);
+    public boolean updateHotelRoomBasePrice(Hotel hotel, double newBasePrice) {
+        return hotel.updateBasePrice(newBasePrice);
     }
 
     /**
