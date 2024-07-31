@@ -1,15 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class CreateHotelView extends JFrame {
-    private JTextField hotelNameField;
-    private JButton createHotelButton;
-    private JButton backButton;
-    private JLabel messageLabel;
+    private final JTextField hotelNameField;
+    private final JButton createHotelButton;
+    private final JButton backButton;
+    private final JLabel messageLabel;
 
     public CreateHotelView() {
         // Set up the frame

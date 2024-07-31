@@ -1,13 +1,11 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 public class CreateReservationController {
-    private CreateReservationView view;
-    private CreateReservationModel model;
-    private MainMenuView mainMenuView;
+    private final CreateReservationView view;
+    private final CreateReservationModel model;
+    private final MainMenuView mainMenuView;
 
     public CreateReservationController(CreateReservationView view, CreateReservationModel model, MainMenuView mainMenuView) {
         this.view = view;
@@ -17,26 +15,13 @@ public class CreateReservationController {
         populateHotels();
         setupListeners();
 
-        view.getHotelComboBox().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                populateRooms();
-            }
-        });
+        view.getHotelComboBox().addActionListener(e -> populateRooms());
 
-        view.getConfirmButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                createReservation();
-            }
-        });
+        view.getConfirmButton().addActionListener(e -> createReservation());
 
-        view.getCancelButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                view.dispose();
-                mainMenuView.setVisible(true);
-            }
+        view.getCancelButton().addActionListener(e -> {
+            view.dispose();
+            mainMenuView.setVisible(true);
         });
     }
 
@@ -77,7 +62,7 @@ public class CreateReservationController {
             return;
         }
 
-        if (checkInDate < 1 || checkInDate > 30 || checkOutDate < 2 || checkOutDate > 31 || checkInDate >= checkOutDate) {
+        if (checkInDate < 1 || checkOutDate < 2 || checkOutDate > 31 || checkInDate >= checkOutDate) {
             JOptionPane.showMessageDialog(view, "Invalid check-in or check-out dates.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }

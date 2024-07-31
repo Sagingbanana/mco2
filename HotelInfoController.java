@@ -1,14 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class HotelInfoController {
-    private HotelInfoView view;
-    private HotelInfoModel model;
-    private SelectHotelController selectHotelController;
-    private SelectHotelView selectHotelView;
+    private final HotelInfoView view;
+    private final HotelInfoModel model;
+    private final SelectHotelController selectHotelController;
+    private final SelectHotelView selectHotelView;
 
     public HotelInfoController(HotelInfoView view, HotelInfoModel model, SelectHotelController selectHotelController, SelectHotelView selectHotelView) {
         this.view = view;
@@ -17,55 +15,20 @@ public class HotelInfoController {
         this.selectHotelView = selectHotelView;
 
         // Add action listeners to buttons
-        this.view.getHighLevelInfoButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewHighLevelInfo();
-            }
-        });
+        this.view.getHighLevelInfoButton().addActionListener(e -> viewHighLevelInfo());
 
-        this.view.getAvailableRoomsButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewAvailableRooms();
-            }
-        });
+        this.view.getAvailableRoomsButton().addActionListener(e -> viewAvailableRooms());
 
-        this.view.getBookedRoomsButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewBookedRooms();
-            }
-        });
+        this.view.getBookedRoomsButton().addActionListener(e -> viewBookedRooms());
 
-        this.view.getRoomInfoButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewRoomInfo();
-            }
-        });
+        this.view.getRoomInfoButton().addActionListener(e -> viewRoomInfo());
 
-        this.view.getReservationInfoButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewReservationInfo();
-            }
-        });
+        this.view.getReservationInfoButton().addActionListener(e -> viewReservationInfo());
 
         // Add action listeners for bottom buttons
-        this.view.getBackToSelectionButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                backToSelectionPage();
-            }
-        });
+        this.view.getBackToSelectionButton().addActionListener(e -> backToSelectionPage());
 
-        this.view.getBackToMainMenuButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                backToMainMenu();
-            }
-        });
+        this.view.getBackToMainMenuButton().addActionListener(e -> backToMainMenu());
     }
 
     private void viewHighLevelInfo() {
@@ -183,9 +146,14 @@ public class HotelInfoController {
         }
     }
 
-
     private void viewRoomInfo() {
         ArrayList<Room> rooms = model.getHotel().getRoomsList();
+
+        if (rooms.isEmpty()) {
+            JOptionPane.showMessageDialog(view, "No rooms available in the hotel.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Exit the method if no rooms are available
+        }
+
         String[] roomNames = rooms.stream().map(Room::getName).toArray(String[]::new);
 
         String selectedRoom = (String) JOptionPane.showInputDialog(view, "Select a Room to View Information:",

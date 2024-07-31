@@ -1,7 +1,7 @@
 import java.util.List;
 
 public class CreateReservationModel {
-    private HotelReservationSystem hotelReservationSystem;
+    private final HotelReservationSystem hotelReservationSystem;
 
     public CreateReservationModel(HotelReservationSystem hotelReservationSystem) {
         this.hotelReservationSystem = hotelReservationSystem;

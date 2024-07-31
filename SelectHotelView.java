@@ -1,15 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 public class SelectHotelView extends JFrame {
-    private JComboBox<String> hotelComboBox;
-    private JButton proceedButton;
-    private JButton backButton;
-    private JLabel messageLabel;
-    private JRadioButton updateAttributesOption;
-    private JRadioButton viewInformationOption;
-    private ButtonGroup optionGroup;
+    private final JComboBox<String> hotelComboBox;
+    private final JButton proceedButton;
+    private final JButton backButton;
+    private final JLabel messageLabel;
+    private final JRadioButton updateAttributesOption;
+    private final JRadioButton viewInformationOption;
 
     public SelectHotelView() {
         setTitle("Select Hotel To Manage");
@@ -26,7 +24,7 @@ public class SelectHotelView extends JFrame {
 
         updateAttributesOption = new JRadioButton("Update Hotel Attributes");
         viewInformationOption = new JRadioButton("View Hotel Information");
-        optionGroup = new ButtonGroup();
+        ButtonGroup optionGroup = new ButtonGroup();
         optionGroup.add(updateAttributesOption);
         optionGroup.add(viewInformationOption);
 

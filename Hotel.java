@@ -138,34 +138,6 @@ public class Hotel {
 
 
     /**
-     * Creates a reservation for a guest in the specified room.
-     *
-     * @param guestName    The name of the guest.
-     * @param checkInDate  The check-in date.
-     * @param checkOutDate The check-out date.
-     * @param room         The room to reserve.
-     *
-     * @return true if the reservation was successfully created, false otherwise.
-     */
-    public boolean createReservation(String guestName, int checkInDate, int checkOutDate, Room room) {
-        // Validate the check-in and check-out dates
-        if ((checkInDate < 1 || checkInDate > 30 || checkOutDate < 2 || checkOutDate > 31)
-                && checkInDate >= checkOutDate)
-            return false;
-
-        // Check if the room is available for the specified dates
-        if (room.isAvailableToReserve(checkInDate, checkOutDate)) {
-            // Add the reservation to the room and hotel reservation lists
-            Reservation reservation = new Reservation(guestName, checkInDate, checkOutDate, room, this);
-            room.getReservationsList().add(reservation);
-            reservationsList.add(reservation);
-            room.updateStatus();
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Creates a reservation for a guest in the specified room with a discount code.
      *
      * @param guestName    The name of the guest.
@@ -279,15 +251,6 @@ public class Hotel {
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * Gets base price of rooms.
-     *
-     * @return Base price of room.
-     */
-    public double getBasePrice(){
-        return roomsList.get(0).getBasePrice();
     }
 
     /**

@@ -12,13 +12,7 @@ public class HotelInfoModel {
     }
 
     public double getTotalIncome() {
-        double totalIncome = 0;
-        for (Room room : hotel.getRoomsList()) {
-            for (Reservation reservation : room.getReservationsList()) {
-                totalIncome += reservation.getTotalPrice();
-            }
-        }
-        return totalIncome;
+        return hotel.getActualEarnings();
     }
 
     public ArrayList<Room> getAvailableRooms(int checkInDate, int checkOutDate) {

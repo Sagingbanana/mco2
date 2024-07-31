@@ -86,22 +86,22 @@ public class Reservation {
             return totalPrice;
         }
 
-        switch (discountCode) {
-            case "I_WORK_HERE":
-                return totalPrice * 0.9;
-            case "STAY4_GET1":
+        return switch (discountCode) {
+            case "I_WORK_HERE" -> totalPrice * 0.9;
+            case "STAY4_GET1" -> {
                 if (checkOutDate - checkInDate >= 5) {
                     totalPrice -= hotel.calculatePriceForRoomOnDate(room, checkInDate);
                 }
-                return totalPrice;
-            case "PAYDAY":
+                yield totalPrice;
+            }
+            case "PAYDAY" -> {
                 if ((checkInDate <= 15 && checkOutDate > 15) || (checkInDate <= 30 && checkOutDate > 30)) {
-                    return totalPrice * 0.93;
+                    yield totalPrice * 0.93;
                 }
-                return totalPrice;
-            default:
-                return totalPrice;
-        }
+                yield totalPrice;
+            }
+            default -> totalPrice;
+        };
     }
 
     /**

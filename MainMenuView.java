@@ -2,10 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainMenuView extends JFrame {
-    private JButton manageHotelsButton;
-    private JButton createReservationButton;
-    private JButton createHotelButton;
-    private JLabel hotelCountLabel;
+    private final JButton manageHotelsButton;
+    private final JButton createReservationButton;
+    private final JButton createHotelButton;
+    private final JLabel hotelCountLabel;
 
     public MainMenuView() {
         // Set up the frame
@@ -15,20 +15,22 @@ public class MainMenuView extends JFrame {
         setLocationRelativeTo(null); // Center the frame
 
         // Create components
-        String asciiArt = "          ██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗                \n" +
-                "          ██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝                \n" +
-                "          ██║ █╗ ██║█████╗  ██║     ██║     ██║   ██║██╔████╔██║█████╗                  \n" +
-                "          ██║███╗██║██╔══╝  ██║     ██║     ██║   ██║██║╚██╔╝██║██╔══╝                  \n" +
-                "          ╚███╔███╔╝███████╗███████╗╚██████╗╚██████╔╝██║ ╚═╝ ██║███████╗                \n" +
-                "           ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝                \n" +
-                "                                                                              \n" +
-                "  ████████╗ ██████╗     ████████╗██╗  ██╗███████╗    ██╗  ██╗██████╗ ███████╗██╗\n" +
-                "  ╚══██╔══╝██╔═══██╗    ╚══██╔══╝██║  ██║██╔════╝    ██║  ██║██╔══██╗██╔════╝██║\n" +
-                "     ██║   ██║   ██║       ██║   ███████║█████╗      ███████║██████╔╝███████╗██║\n" +
-                "     ██║   ██║   ██║       ██║   ██╔══██║██╔══╝      ██╔══██║██╔══██╗╚════██║╚═╝\n" +
-                "     ██║   ╚██████╔╝       ██║   ██║  ██║███████╗    ██║  ██║██║  ██║███████║██╗\n" +
-                "     ╚═╝    ╚═════╝        ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝\n" +
-                "                                                                              \n";
+        String asciiArt = """
+                          ██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗               \s
+                          ██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝               \s
+                          ██║ █╗ ██║█████╗  ██║     ██║     ██║   ██║██╔████╔██║█████╗                 \s
+                          ██║███╗██║██╔══╝  ██║     ██║     ██║   ██║██║╚██╔╝██║██╔══╝                 \s
+                          ╚███╔███╔╝███████╗███████╗╚██████╗╚██████╔╝██║ ╚═╝ ██║███████╗               \s
+                           ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝               \s
+                                                                                             \s
+                  ████████╗ ██████╗     ████████╗██╗  ██╗███████╗    ██╗  ██╗██████╗ ███████╗██╗
+                  ╚══██╔══╝██╔═══██╗    ╚══██╔══╝██║  ██║██╔════╝    ██║  ██║██╔══██╗██╔════╝██║
+                     ██║   ██║   ██║       ██║   ███████║█████╗      ███████║██████╔╝███████╗██║
+                     ██║   ██║   ██║       ██║   ██╔══██║██╔══╝      ██╔══██║██╔══██╗╚════██║╚═╝
+                     ██║   ╚██████╔╝       ██║   ██║  ██║███████╗    ██║  ██║██║  ██║███████║██╗
+                     ╚═╝    ╚═════╝        ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝
+                                                                                             \s
+                """;
 
         JLabel asciiArtLabel = new JLabel("<html><pre>" + asciiArt + "</pre></html>", SwingConstants.CENTER);
         JLabel instructionLabel = new JLabel("To get started, select any of the three options below.", SwingConstants.CENTER);

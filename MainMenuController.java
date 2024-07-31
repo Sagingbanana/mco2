@@ -1,10 +1,8 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MainMenuController {
-    private MainMenuView view;
-    private MainMenuModel model;
+    private final MainMenuView view;
+    private final MainMenuModel model;
 
     public MainMenuController(MainMenuView view, MainMenuModel model) {
         this.view = view;
@@ -14,26 +12,11 @@ public class MainMenuController {
         updateHotelCount();
 
         // Add action listeners to buttons
-        this.view.getManageHotelsButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                manageHotels();
-            }
-        });
+        this.view.getManageHotelsButton().addActionListener(e -> manageHotels());
 
-        this.view.getCreateReservationButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                createReservation();
-            }
-        });
+        this.view.getCreateReservationButton().addActionListener(e -> createReservation());
 
-        this.view.getCreateHotelButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                createHotel(model.getHotelReservationSystem());
-            }
-        });
+        this.view.getCreateHotelButton().addActionListener(e -> createHotel(model.getHotelReservationSystem()));
     }
 
     private void manageHotels() {

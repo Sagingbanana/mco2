@@ -2,14 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CreateReservationView extends JFrame {
-    private JTextField guestNameField;
-    private JTextField checkInDateField;
-    private JTextField checkOutDateField;
-    private JComboBox<String> hotelComboBox;
-    private JComboBox<String> roomComboBox;
-    private JTextField discountCodeField;
-    private JButton confirmButton;
-    private JButton cancelButton;
+    private final JTextField guestNameField;
+    private final JTextField checkInDateField;
+    private final JTextField checkOutDateField;
+    private final JComboBox<String> hotelComboBox;
+    private final JComboBox<String> roomComboBox;
+    private final JTextField discountCodeField;
+    private final JButton confirmButton;
+    private final JButton cancelButton;
 
     public CreateReservationView() {
         setTitle("Create Reservation");

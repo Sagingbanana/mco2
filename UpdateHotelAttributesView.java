@@ -2,17 +2,15 @@ import javax.swing.*;
 import java.awt.*;
 
 public class UpdateHotelAttributesView extends JFrame {
-    private JLabel hotelNameLabel;
-    private JLabel messageLabel; // New JLabel for displaying messages
-    private JButton changeHotelNameButton;
-    private JButton addRoomsButton;
-    private JButton removeRoomsButton;
-    private JButton updateBasePriceButton;
-    private JButton removeReservationButton;
-    private JButton removeHotelButton;
-    private JButton setDatePriceModifierButton; // New button
-    private JButton backToSelectionButton;
-    private JButton backToMainMenuButton;
+    private final JButton changeHotelNameButton;
+    private final JButton addRoomsButton;
+    private final JButton removeRoomsButton;
+    private final JButton updateBasePriceButton;
+    private final JButton removeReservationButton;
+    private final JButton removeHotelButton;
+    private final JButton setDatePriceModifierButton; // New button
+    private final JButton backToSelectionButton;
+    private final JButton backToMainMenuButton;
 
     public UpdateHotelAttributesView(String hotelName) {
         setTitle("Update Hotel Attributes");
@@ -21,22 +19,24 @@ public class UpdateHotelAttributesView extends JFrame {
         setLocationRelativeTo(null); // Center the frame
 
         // Create components
-        String asciiArt = "<html>" +
-                "<pre>" +
-                "██╗   ██╗██████╗ ██████╗  █████╗ ████████╗███████╗    ██╗  ██╗ ██████╗ ████████╗███████╗██╗     \n" +
-                "██║   ██║██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔════╝    ██║  ██║██╔═══██╗╚══██╔══╝██╔════╝██║     \n" +
-                "██║   ██║██████╔╝██║  ██║███████║   ██║   █████╗      ███████║██║   ██║   ██║   █████╗  ██║     \n" +
-                "██║   ██║██╔═══╝ ██║  ██║██╔══██║   ██║   ██╔══╝      ██╔══██║██║   ██║   ██║   ██╔══╝  ██║     \n" +
-                "╚██████╔╝██║     ██████╔╝██║  ██║   ██║   ███████╗    ██║  ██║╚██████╔╝   ██║   ███████╗███████╗\n" +
-                " ╚═════╝ ╚═╝     ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝    ╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚══════╝╚══════╝" +
-                "</pre>" +
-                "</html>";
+        String asciiArt = """
+                <html>\
+                <pre>\
+                ██╗   ██╗██████╗ ██████╗  █████╗ ████████╗███████╗    ██╗  ██╗ ██████╗ ████████╗███████╗██╗    \s
+                ██║   ██║██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔════╝    ██║  ██║██╔═══██╗╚══██╔══╝██╔════╝██║    \s
+                ██║   ██║██████╔╝██║  ██║███████║   ██║   █████╗      ███████║██║   ██║   ██║   █████╗  ██║    \s
+                ██║   ██║██╔═══╝ ██║  ██║██╔══██║   ██║   ██╔══╝      ██╔══██║██║   ██║   ██║   ██╔══╝  ██║    \s
+                ╚██████╔╝██║     ██████╔╝██║  ██║   ██║   ███████╗    ██║  ██║╚██████╔╝   ██║   ███████╗███████╗
+                 ╚═════╝ ╚═╝     ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝    ╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚══════╝╚══════╝\
+                </pre>\
+                </html>""";
 
         JLabel asciiLabel = new JLabel(asciiArt, SwingConstants.CENTER);
-        hotelNameLabel = new JLabel("<html>The hotel being managed is hotel " + hotelName + ".<br><br> <center>Select an option to update:</center></html>", SwingConstants.CENTER);
+        JLabel hotelNameLabel = new JLabel("<html>The hotel being managed is hotel " + hotelName + ".<br><br> <center>Select an option to update:</center></html>", SwingConstants.CENTER);
 
         // Initialize the message label
-        messageLabel = new JLabel("", SwingConstants.CENTER);
+        // New JLabel for displaying messages
+        JLabel messageLabel = new JLabel("", SwingConstants.CENTER);
         messageLabel.setForeground(Color.RED); // Set color for the message
 
         // Create buttons
@@ -117,10 +117,6 @@ public class UpdateHotelAttributesView extends JFrame {
         lastRowPanel.add(backToSelectionButton);
         lastRowPanel.add(backToMainMenuButton);
         add(lastRowPanel, BorderLayout.SOUTH); // Add back buttons at the bottom
-    }
-
-    public void setMessage(String message) {
-        messageLabel.setText(message); // Update the message label with the provided message
     }
 
     public JButton getChangeHotelNameButton() {

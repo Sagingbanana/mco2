@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class MainMenuModel {
     private final HotelReservationSystem hotelReservationSystem;
 
@@ -43,19 +41,4 @@ public class MainMenuModel {
         return true;
     }
 
-    /**
-     * Displays an alert if there are no hotels or rooms available.
-     */
-    public void displayAlertIfNoHotelsOrRooms() {
-        if (areThereNoHotels()) {
-            // Display an alert that no hotels are available
-            System.out.println("No hotels available.");
-        } else if (areThereNoAvailableRooms()) {
-            // Display an alert that no rooms are available
-            System.out.println("No rooms available.");
-        } else {
-            // Display the number of available hotels
-            System.out.println("Number of operating hotels: " + getNumberOfOperatingHotels());
-        }
-    }
 }

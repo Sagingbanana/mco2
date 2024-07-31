@@ -2,14 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class HotelInfoView extends JFrame {
-    private JLabel hotelNameLabel;
-    private JButton highLevelInfoButton;
-    private JButton availableRoomsButton;
-    private JButton bookedRoomsButton;
-    private JButton roomInfoButton;
-    private JButton reservationInfoButton;
-    private JButton backToSelectionButton;
-    private JButton backToMainMenuButton;
+    private final JButton highLevelInfoButton;
+    private final JButton availableRoomsButton;
+    private final JButton bookedRoomsButton;
+    private final JButton roomInfoButton;
+    private final JButton reservationInfoButton;
+    private final JButton backToSelectionButton;
+    private final JButton backToMainMenuButton;
 
     public HotelInfoView(String hotelName) {
         setTitle("Hotel Information");
@@ -18,19 +17,20 @@ public class HotelInfoView extends JFrame {
         setLocationRelativeTo(null); // Center the frame
 
         // Create components
-        String asciiArt = "<html>" +
-                "<pre>" +
-                "██╗   ██╗██╗███████╗██╗    ██╗    ██╗  ██╗ ██████╗ ████████╗███████╗██╗     \n" +
-                "██║   ██║██║██╔════╝██║    ██║    ██║  ██║██╔═══██╗╚══██╔══╝██╔════╝██║     \n" +
-                "██║   ██║██║█████╗  ██║ █╗ ██║    ███████║██║   ██║   ██║   █████╗  ██║     \n" +
-                "╚██╗ ██╔╝██║██╔══╝  ██║███╗██║    ██╔══██║██║   ██║   ██║   ██╔══╝  ██║     \n" +
-                " ╚████╔╝ ██║███████╗╚███╔███╔╝    ██║  ██║╚██████╔╝   ██║   ███████╗███████╗\n" +
-                "  ╚═══╝  ╚═╝╚══════╝ ╚══╝╚══╝     ╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚══════╝╚══════╝" +
-                "</pre>" +
-                "</html>";
+        String asciiArt = """
+                <html>\
+                <pre>\
+                ██╗   ██╗██╗███████╗██╗    ██╗    ██╗  ██╗ ██████╗ ████████╗███████╗██╗    \s
+                ██║   ██║██║██╔════╝██║    ██║    ██║  ██║██╔═══██╗╚══██╔══╝██╔════╝██║    \s
+                ██║   ██║██║█████╗  ██║ █╗ ██║    ███████║██║   ██║   ██║   █████╗  ██║    \s
+                ╚██╗ ██╔╝██║██╔══╝  ██║███╗██║    ██╔══██║██║   ██║   ██║   ██╔══╝  ██║    \s
+                 ╚████╔╝ ██║███████╗╚███╔███╔╝    ██║  ██║╚██████╔╝   ██║   ███████╗███████╗
+                  ╚═══╝  ╚═╝╚══════╝ ╚══╝╚══╝     ╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚══════╝╚══════╝\
+                </pre>\
+                </html>""";
 
         JLabel asciiLabel = new JLabel(asciiArt, SwingConstants.CENTER);
-        hotelNameLabel = new JLabel("<html>The hotel being managed is hotel " + hotelName + ".<br><br><center>Click what type of information to view:</center></html>", SwingConstants.CENTER);
+        JLabel hotelNameLabel = new JLabel("<html>The hotel being managed is hotel " + hotelName + ".<br><br><center>Click what type of information to view:</center></html>", SwingConstants.CENTER);
 
         // Create buttons
         highLevelInfoButton = new JButton("High-Level Information");

@@ -1,15 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UpdateHotelAttributesController {
-    private UpdateHotelAttributesView view;
-    private UpdateHotelAttributesModel model;
-    private SelectHotelController selectHotelController;
-    private SelectHotelView selectHotelView;
+    private final UpdateHotelAttributesView view;
+    private final UpdateHotelAttributesModel model;
+    private final SelectHotelController selectHotelController;
+    private final SelectHotelView selectHotelView;
 
     public UpdateHotelAttributesController(UpdateHotelAttributesView view, UpdateHotelAttributesModel model, SelectHotelController selectHotelController, SelectHotelView selectHotelView) {
         this.view = view;
@@ -18,69 +16,30 @@ public class UpdateHotelAttributesController {
         this.selectHotelView = selectHotelView;
 
         // Add action listeners to buttons
-        this.view.getChangeHotelNameButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                changeHotelName(); // Call the method to change hotel name
-            }
+        this.view.getChangeHotelNameButton().addActionListener(e -> {
+            changeHotelName(); // Call the method to change hotel name
         });
 
-        this.view.getAddRoomsButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addRoomsToHotel(); // Call the method to handle adding rooms
-            }
+        this.view.getAddRoomsButton().addActionListener(e -> {
+            addRoomsToHotel(); // Call the method to handle adding rooms
         });
 
-        this.view.getRemoveRoomButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                removeRoomsFromHotel(); // Call the method to handle removing rooms
-            }
+        this.view.getRemoveRoomButton().addActionListener(e -> {
+            removeRoomsFromHotel(); // Call the method to handle removing rooms
         });
 
-        this.view.getUpdateBasePriceButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateBasePrice();
-            }
-        });
+        this.view.getUpdateBasePriceButton().addActionListener(e -> updateBasePrice());
 
-        this.view.getRemoveReservationButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                removeReservation();
-            }
-        });
+        this.view.getRemoveReservationButton().addActionListener(e -> removeReservation());
 
-        this.view.getRemoveHotelButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                removeHotel();
-            }
-        });
+        this.view.getRemoveHotelButton().addActionListener(e -> removeHotel());
 
-        this.view.getSetDatePriceModifierButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setDatePriceModifier();
-            }
-        });
+        this.view.getSetDatePriceModifierButton().addActionListener(e -> setDatePriceModifier());
 
         // Add action listeners for bottom buttons
-        this.view.getBackToSelectionButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                backToSelectionPage();
-            }
-        });
+        this.view.getBackToSelectionButton().addActionListener(e -> backToSelectionPage());
 
-        this.view.getBackToMainMenuButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                backToMainMenu();
-            }
-        });
+        this.view.getBackToMainMenuButton().addActionListener(e -> backToMainMenu());
     }
 
     private void changeHotelName() {

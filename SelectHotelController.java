@@ -1,11 +1,10 @@
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SelectHotelController {
-    private SelectHotelView view;
-    private SelectHotelModel model;
-    private MainMenuView mainMenuView;
+    private final SelectHotelView view;
+    private final SelectHotelModel model;
+    private final MainMenuView mainMenuView;
 
     public SelectHotelController(SelectHotelView view, SelectHotelModel model, MainMenuView mainMenuView) {
         this.view = view;
@@ -16,19 +15,9 @@ public class SelectHotelController {
         populateHotelList();
 
         // Add action listeners to buttons
-        this.view.getProceedButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                proceed();
-            }
-        });
+        this.view.getProceedButton().addActionListener(e -> proceed());
 
-        this.view.getBackButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                goBackToMainMenu();
-            }
-        });
+        this.view.getBackButton().addActionListener(e -> goBackToMainMenu());
     }
 
     private void populateHotelList() {

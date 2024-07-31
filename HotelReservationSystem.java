@@ -96,17 +96,6 @@ public class HotelReservationSystem {
     }
 
     /**
-     * Sets the price modifier for a specific date in the specified hotel.
-     *
-     * @param hotel    The hotel to set the modifier for.
-     * @param date     The date to set the modifier for.
-     * @param modifier The price modifier (e.g., 0.9 for 90%, 1.1 for 110%).
-     */
-    public void setHotelDatePriceModifier(Hotel hotel, int date, double modifier) {
-        hotel.setDatePriceModifier(date, modifier);
-    }
-
-    /**
      * Updates the base price for rooms of a specific type in the specified hotel.
      *
      * @param hotel        The hotel to update the base price for.
@@ -134,23 +123,6 @@ public class HotelReservationSystem {
     }
 
     /**
-     * Returns a list of rooms of a specific type in a hotel.
-     *
-     * @param hotel The hotel to get the rooms from.
-     * @param type  The type of rooms to filter by.
-     * @return A list of rooms of the specified type.
-     */
-    public ArrayList<Room> getRoomsByType(Hotel hotel, Room.RoomType type) {
-        ArrayList<Room> roomsOfType = new ArrayList<>();
-        for (Room room : hotel.getRoomsList()) {
-            if (room.getType() == type) {
-                roomsOfType.add(room);
-            }
-        }
-        return roomsOfType;
-    }
-
-    /**
      * Returns a list of available rooms for reservation within a specified date range.
      *
      * @param hotel        The hotel to check for available rooms.
@@ -166,24 +138,6 @@ public class HotelReservationSystem {
             }
         }
         return availableRooms;
-    }
-
-    /**
-     * Returns a list of unavailable rooms for reservation within a specified date range.
-     *
-     * @param hotel        The hotel to check for unavailable rooms.
-     * @param checkInDate  The check-in date.
-     * @param checkOutDate The check-out date.
-     * @return A list of unavailable rooms.
-     */
-    public ArrayList<Room> getUnavailableRooms(Hotel hotel, int checkInDate, int checkOutDate) {
-        ArrayList<Room> unavailableRooms = new ArrayList<>();
-        for (Room room : hotel.getRoomsList()) {
-            if (!room.isAvailableToReserve(checkInDate, checkOutDate)) {
-                unavailableRooms.add(room);
-            }
-        }
-        return unavailableRooms;
     }
 
     /**

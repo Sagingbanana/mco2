@@ -2,28 +2,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CreateHotelController {
-    private CreateHotelView view;
-    private CreateHotelModel model;
-    private MainMenuView mainMenuView;
+    private final CreateHotelView view;
+    private final CreateHotelModel model;
+    private final MainMenuView mainMenuView;
 
     public CreateHotelController(CreateHotelView view, CreateHotelModel model, MainMenuView mainMenuView) {
         this.view = view;
         this.model = model;
         this.mainMenuView = mainMenuView;
 
-        this.view.getCreateHotelButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                createHotel();
-            }
-        });
+        this.view.getCreateHotelButton().addActionListener(e -> createHotel());
 
-        this.view.getBackButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                goBackToMainMenu();
-            }
-        });
+        this.view.getBackButton().addActionListener(e -> goBackToMainMenu());
     }
 
     private void createHotel() {
