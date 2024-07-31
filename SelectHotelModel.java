@@ -1,14 +1,18 @@
 import java.util.List;
 
 public class SelectHotelModel {
-    private final HotelReservationSystem hotelReservationSystem;
+    private final HotelReservationSystem hrs;
 
-    public SelectHotelModel(HotelReservationSystem hotelReservationSystem) {
-        this.hotelReservationSystem = hotelReservationSystem;
+    public SelectHotelModel(HotelReservationSystem hrs) {
+        this.hrs = hrs;
+    }
+
+    public HotelReservationSystem getHrs() {
+        return hrs;
     }
 
     public List<Hotel> getHotels() {
-        return hotelReservationSystem.getHotelList();
+        return hrs.getHotelList();
     }
 
     public boolean hasHotels() {

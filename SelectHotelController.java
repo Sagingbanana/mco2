@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -69,9 +68,20 @@ public class SelectHotelController {
                 hotelInfoView.setVisible(true);
                 this.view.setVisible(false); // Hide the current view
             }
-        } else {
-            String selectedOption = String.valueOf(view.getUpdateAttributesOption());
-            JOptionPane.showMessageDialog(view, "Proceeding with: " + selectedOption + " for hotel: " + selectedHotelName, "Proceed", JOptionPane.INFORMATION_MESSAGE);
+        } else if (view.getUpdateAttributesOption().isSelected()) {
+            // Open the UpdateHotelAttributesView with UpdateHotelAttributesController
+            Hotel selectedHotel = model.getHotels().stream()
+                    .filter(hotel -> hotel.getName().equals(selectedHotelName))
+                    .findFirst()
+                    .orElse(null);
+
+            if (selectedHotel != null) {
+                UpdateHotelAttributesView updateView = new UpdateHotelAttributesView(selectedHotel.getName());
+                UpdateHotelAttributesModel updateModel = new UpdateHotelAttributesModel(selectedHotel, model.getHrs()); // Pass hrs here
+                new UpdateHotelAttributesController(updateView, updateModel, this, view);
+                updateView.setVisible(true);
+                this.view.setVisible(false); // Hide the current view
+            }
         }
     }
 
@@ -79,5 +89,4 @@ public class SelectHotelController {
         view.dispose();
         mainMenuView.setVisible(true);
     }
-
 }
