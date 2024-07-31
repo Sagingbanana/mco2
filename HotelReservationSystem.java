@@ -194,4 +194,23 @@ public class HotelReservationSystem {
     public ArrayList<Hotel> getHotelList() {
         return hotelList;
     }
+
+    /**
+     * Gets a list of available hotels in the system.
+     * A hotel is considered available if it has at least one room that is not fully booked.
+     *
+     * @return A list of available hotels.
+     */
+    public ArrayList<Hotel> getAvailableHotels() {
+        ArrayList<Hotel> availableHotels = new ArrayList<>();
+
+        for (Hotel hotel : hotelList) {
+            // Check if there is at least one room in the hotel that is not fully booked
+            if (hotel.getAvailableRoomsCount() > 0) {
+                availableHotels.add(hotel);
+            }
+        }
+
+        return availableHotels;
+    }
 }
