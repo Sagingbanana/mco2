@@ -129,23 +129,21 @@ public class Hotel {
 
 
     /**
-     * Updates the base price for all rooms in the hotel of a specific type if there are no reservations.
+     * Updates the base price for all rooms in the hotel if there are no reservations.
      *
      * @param newBasePrice The new base price to set.
-     * @param type         The type of rooms to update.
      *
      * @return true if the base price was successfully updated, false otherwise.
      */
-    public boolean updateBasePrice(double newBasePrice, Room.RoomType type) {
+    public boolean updateBasePrice(double newBasePrice) {
         // Check if there are no reservations and the new base price is valid
         if (!reservationsList.isEmpty() || newBasePrice < 100.0) return false;
         for (Room room : roomsList) {
-            if (room.getType() == type) {
-                room.setBasePrice(newBasePrice);
-            }
+            room.setBasePrice(newBasePrice); // Update base price for all rooms
         }
         return true;
     }
+
 
     /**
      * Creates a reservation for a guest in the specified room.
