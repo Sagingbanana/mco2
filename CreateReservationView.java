@@ -3,16 +3,23 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * The CreateReservationView class represents the GUI for creating a reservation.
+ * It allows users to input guest information, select a hotel and room, and apply a discount code.
+ */
 public class CreateReservationView extends JFrame {
-    private final JTextField guestNameField;
-    private final JTextField checkInDateField;
-    private final JTextField checkOutDateField;
-    private final JComboBox<String> hotelComboBox;
-    private final JComboBox<String> roomComboBox;
-    private final JTextField discountCodeField;
-    private final JButton confirmButton;
-    private final JButton cancelButton;
+    private final JTextField guestNameField; // Text field for guest name input
+    private final JTextField checkInDateField; // Text field for check-in date input
+    private final JTextField checkOutDateField; // Text field for check-out date input
+    private final JComboBox<String> hotelComboBox; // Combo box for selecting a hotel
+    private final JComboBox<String> roomComboBox; // Combo box for selecting a room
+    private final JTextField discountCodeField; // Text field for discount code input
+    private final JButton confirmButton; // Button to confirm reservation
+    private final JButton cancelButton; // Button to cancel reservation
 
+    /**
+     * Constructs the CreateReservationView and initializes the GUI components.
+     */
     public CreateReservationView() {
         setTitle("Create Reservation");
         setSize(400, 350);
@@ -52,7 +59,7 @@ public class CreateReservationView extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 3;
         add(new JLabel("Hotel:"), gbc);
-        hotelComboBox = new JComboBox<>();
+        hotelComboBox = new JComboBox<>(); // Initialize hotel selection combo box
         gbc.gridx = 1;
         add(hotelComboBox, gbc);
 
@@ -60,7 +67,7 @@ public class CreateReservationView extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 4;
         add(new JLabel("Room:"), gbc);
-        roomComboBox = new JComboBox<>();
+        roomComboBox = new JComboBox<>(); // Initialize room selection combo box
         gbc.gridx = 1;
         add(roomComboBox, gbc);
 
@@ -68,22 +75,22 @@ public class CreateReservationView extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 5;
         add(new JLabel("Discount Code:"), gbc);
-        discountCodeField = new JTextField(15);
+        discountCodeField = new JTextField(15); // Initialize discount code input field
         gbc.gridx = 1;
         add(discountCodeField, gbc);
 
         // OK and Cancel buttons
-        confirmButton = new JButton("Confirm");
-        cancelButton = new JButton("Cancel");
+        confirmButton = new JButton("Confirm"); // Button for confirming the reservation
+        cancelButton = new JButton("Cancel"); // Button for canceling the reservation
 
         gbc.gridx = 0;
         gbc.gridy = 6;
         gbc.gridwidth = 1;
         gbc.anchor = GridBagConstraints.CENTER;
-        add(confirmButton, gbc);
+        add(confirmButton, gbc); // Add confirm button
 
         gbc.gridx = 1;
-        add(cancelButton, gbc);
+        add(cancelButton, gbc); // Add cancel button
 
         setLocationRelativeTo(null);  // Center the window on the screen
 
@@ -105,42 +112,44 @@ public class CreateReservationView extends JFrame {
         });
     }
 
+    // Getters for GUI components
+
     public JTextField getGuestNameField() {
-        return guestNameField;
+        return guestNameField; // Return the guest name text field
     }
 
     public JTextField getCheckInDateField() {
-        return checkInDateField;
+        return checkInDateField; // Return the check-in date text field
     }
 
     public JTextField getCheckOutDateField() {
-        return checkOutDateField;
+        return checkOutDateField; // Return the check-out date text field
     }
 
     public JComboBox<String> getHotelComboBox() {
-        return hotelComboBox;
+        return hotelComboBox; // Return the hotel combo box
     }
 
     public JComboBox<String> getRoomComboBox() {
-        return roomComboBox;
+        return roomComboBox; // Return the room combo box
     }
 
     public JTextField getDiscountCodeField() {
-        return discountCodeField;
+        return discountCodeField; // Return the discount code text field
     }
 
     public JButton getConfirmButton() {
-        return confirmButton;
+        return confirmButton; // Return the confirm button
     }
 
     public JButton getCancelButton() {
-        return cancelButton;
+        return cancelButton; // Return the cancel button
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             CreateReservationView view = new CreateReservationView();
-            view.setVisible(true);
+            view.setVisible(true); // Make the view visible
         });
     }
 }

@@ -3,13 +3,29 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller for managing updates to hotel attributes, including changing the hotel name,
+ * adding and removing rooms, updating base price, and managing reservations.
+ */
 public class UpdateHotelAttributesController {
-    private final UpdateHotelAttributesView view;
-    private final UpdateHotelAttributesModel model;
-    private final SelectHotelController selectHotelController;
-    private final SelectHotelView selectHotelView;
+    private final UpdateHotelAttributesView view; // The view associated with this controller
+    private final UpdateHotelAttributesModel model; // The model that holds hotel data
+    private final SelectHotelController selectHotelController; // Controller for selecting hotels
+    private final SelectHotelView selectHotelView; // View for selecting hotels
 
-    public UpdateHotelAttributesController(UpdateHotelAttributesView view, UpdateHotelAttributesModel model, SelectHotelController selectHotelController, SelectHotelView selectHotelView) {
+    /**
+     * Constructs an UpdateHotelAttributesController with the specified view, model,
+     * and controllers.
+     *
+     * @param view                  The view associated with this controller
+     * @param model                 The model containing hotel data
+     * @param selectHotelController The controller for hotel selection
+     * @param selectHotelView       The view for hotel selection
+     */
+    public UpdateHotelAttributesController(UpdateHotelAttributesView view,
+                                           UpdateHotelAttributesModel model,
+                                           SelectHotelController selectHotelController,
+                                           SelectHotelView selectHotelView) {
         this.view = view;
         this.model = model;
         this.selectHotelController = selectHotelController;
@@ -42,10 +58,15 @@ public class UpdateHotelAttributesController {
         this.view.getBackToMainMenuButton().addActionListener(e -> backToMainMenu());
     }
 
+    /**
+     * Changes the name of the selected hotel based on user input.
+     * Displays a dialog for the user to enter a new hotel name and updates the model if valid.
+     */
     private void changeHotelName() {
-        String currentHotelName = model.getSelectedHotelName();
+        String currentHotelName = model.getSelectedHotelName(); // Get the current hotel name
         String newHotelName = JOptionPane.showInputDialog(view, "Enter a new name for the hotel:", currentHotelName);
 
+        // Check if the new hotel name is valid
         if (newHotelName != null && model.isHotelNameValid(newHotelName)) {
             // Update the hotel name in the model
             if (model.getHrs().updateHotelName(newHotelName, model.getHotel())) { // Use the passed hrs
@@ -59,8 +80,12 @@ public class UpdateHotelAttributesController {
         }
     }
 
+    /**
+     * Adds rooms to the selected hotel based on user input.
+     * Prompts the user to select the type and number of rooms to add.
+     */
     private void addRoomsToHotel() {
-        int currentRoomCount = model.getHotel().getRoomsList().size(); // Assuming this method exists
+        int currentRoomCount = model.getHotel().getRoomsList().size(); // Get the current room count
 
         // Check if the hotel already has 50 rooms
         if (currentRoomCount >= 50) {
@@ -68,7 +93,7 @@ public class UpdateHotelAttributesController {
             return; // Exit the method if the room limit is reached
         }
 
-        String[] roomTypes = { "STANDARD", "DELUXE", "EXECUTIVE" };
+        String[] roomTypes = {"STANDARD", "DELUXE", "EXECUTIVE"}; // Define room types
         String roomType = (String) JOptionPane.showInputDialog(
                 view,
                 "Select the type of room to add:",
@@ -80,14 +105,15 @@ public class UpdateHotelAttributesController {
         );
 
         if (roomType != null) { // User didn't cancel
-            int remainingRooms = 50 - currentRoomCount; // Assuming max rooms is 50
+            int remainingRooms = 50 - currentRoomCount; // Calculate remaining room capacity
             String message = "Enter the number of rooms to add (max. " + remainingRooms + "):";
 
             String numberOfRoomsString = JOptionPane.showInputDialog(view, message);
 
             if (numberOfRoomsString != null) { // User didn't cancel
                 try {
-                    int numberOfRooms = Integer.parseInt(numberOfRoomsString);
+                    int numberOfRooms = Integer.parseInt(numberOfRoomsString); // Parse input to integer
+                    // Validate the number of rooms to add
                     if (numberOfRooms > 0 && numberOfRooms <= remainingRooms) {
                         // Call the method to add rooms
                         if (model.getHrs().addRoomsToHotel(model.getHotel(), numberOfRooms, Room.RoomType.valueOf(roomType))) {
@@ -107,8 +133,11 @@ public class UpdateHotelAttributesController {
         }
     }
 
+    /**
+     * Removes selected rooms from the hotel, prompting the user to select which rooms to remove.
+     */
     private void removeRoomsFromHotel() {
-        List<Room> availableRooms = model.getHotel().getRoomsList();
+        List<Room> availableRooms = model.getHotel().getRoomsList(); // Get available rooms
 
         // Check if there are no rooms in the hotel
         if (availableRooms.isEmpty()) {
@@ -168,6 +197,11 @@ public class UpdateHotelAttributesController {
         }
     }
 
+    /**
+     * Updates the base price for all rooms in the selected hotel.
+     * The method checks if there are any rooms in the hotel and if there are active reservations
+     * before prompting the user for a new base price.
+     */
     private void updateBasePrice() {
         // Check if there are any rooms in the hotel
         if (model.getHotel().getRoomsList().isEmpty()) {
@@ -195,8 +229,13 @@ public class UpdateHotelAttributesController {
         }
     }
 
-    // Prompt user for the new base price and validate it
+    /**
+     * Prompts the user for a new base price for all rooms and validates the input.
+     *
+     * @return the new base price entered by the user, or null if the input was invalid or cancelled.
+     */
     private Double promptForNewBasePrice() {
+        // Prompt user for the new base price
         String newBasePriceString = JOptionPane.showInputDialog(view, "Enter the new base price for all rooms (minimum PHP100):");
         if (newBasePriceString != null) { // User didn't cancel
             try {
@@ -205,7 +244,7 @@ public class UpdateHotelAttributesController {
                     JOptionPane.showMessageDialog(view, "The base price must be at least PHP100.", "Error", JOptionPane.ERROR_MESSAGE);
                     return null; // Invalid base price
                 }
-                return newBasePrice;
+                return newBasePrice; // Return the valid new base price
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(view, "Invalid number format. Please enter a valid base price.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -213,6 +252,10 @@ public class UpdateHotelAttributesController {
         return null; // User cancelled or invalid input
     }
 
+    /**
+     * Removes the selected hotel after confirming the user's choice.
+     * If there are active reservations in the hotel, the removal will not be allowed.
+     */
     private void removeHotel() {
         // Get the selected hotel
         Hotel selectedHotel = model.getHotel(); // Adjust this line to get the currently selected hotel
@@ -220,10 +263,10 @@ public class UpdateHotelAttributesController {
         // Check if a hotel is selected
         if (selectedHotel == null) {
             JOptionPane.showMessageDialog(view, "Please select a hotel to remove.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            return; // Exit if no hotel is selected
         }
 
-        // Confirmation dialog
+        // Confirmation dialog for hotel removal
         int confirmation = JOptionPane.showConfirmDialog(
                 view,
                 "Are you sure you want to remove the hotel: " + selectedHotel.getName() + "?",
@@ -246,6 +289,10 @@ public class UpdateHotelAttributesController {
         }
     }
 
+    /**
+     * Removes a reservation based on the user's input.
+     * Prompts the user for the Reservation ID and verifies if it exists.
+     */
     private void removeReservation() {
         // Check if the selected hotel has any reservations
         if (model.getHotel().getReservationsList().isEmpty()) {
@@ -253,6 +300,7 @@ public class UpdateHotelAttributesController {
             return; // Exit if there are no reservations
         }
 
+        // Prompt user for the Reservation ID to remove
         String reservationId = JOptionPane.showInputDialog(view, "Enter the Reservation ID to remove:");
 
         if (reservationId == null || reservationId.isEmpty()) {
@@ -276,8 +324,10 @@ public class UpdateHotelAttributesController {
         }
     }
 
-
-    // Method to set the date price modifier
+    /**
+     * Sets a date price modifier for a specific check-in date.
+     * Prompts the user for a check-in date and the corresponding price modifier.
+     */
     private void setDatePriceModifier() {
         // Prompt user to select a check-in date
         String[] dates = new String[30];
@@ -285,6 +335,7 @@ public class UpdateHotelAttributesController {
             dates[i] = String.valueOf(i + 1); // Create array of dates from 1 to 30
         }
 
+        // Show input dialog for date selection
         String selectedDateString = (String) JOptionPane.showInputDialog(
                 view,
                 "Select a check-in date (1-30):",
@@ -321,11 +372,17 @@ public class UpdateHotelAttributesController {
         }
     }
 
+    /**
+     * Closes the current view and returns to the hotel selection page.
+     */
     private void backToSelectionPage() {
         view.dispose(); // Close the current view
         selectHotelView.setVisible(true); // Show the selection view again
     }
 
+    /**
+     * Closes the current view and returns to the main menu.
+     */
     private void backToMainMenu() {
         view.dispose(); // Close the current view
         selectHotelController.goBackToMainMenu(); // Show the main menu

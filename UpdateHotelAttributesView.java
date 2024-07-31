@@ -3,17 +3,27 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * Represents the view for updating hotel attributes in the hotel management system.
+ * It provides buttons for various actions related to hotel attributes.
+ */
 public class UpdateHotelAttributesView extends JFrame {
+    // Buttons for updating hotel attributes
     private final JButton changeHotelNameButton;
     private final JButton addRoomsButton;
     private final JButton removeRoomsButton;
     private final JButton updateBasePriceButton;
     private final JButton removeReservationButton;
     private final JButton removeHotelButton;
-    private final JButton setDatePriceModifierButton; // New button
-    private final JButton backToSelectionButton;
-    private final JButton backToMainMenuButton;
+    private final JButton setDatePriceModifierButton; // New button for setting date price modifiers
+    private final JButton backToSelectionButton; // Button to go back to hotel selection
+    private final JButton backToMainMenuButton; // Button to return to the main menu
 
+    /**
+     * Constructs the UpdateHotelAttributesView.
+     *
+     * @param hotelName the name of the hotel being managed
+     */
     public UpdateHotelAttributesView(String hotelName) {
         setTitle("Update Hotel Attributes");
         setSize(850, 480); // Adjusted size to accommodate the new button
@@ -33,6 +43,7 @@ public class UpdateHotelAttributesView extends JFrame {
                 </pre>\
                 </html>""";
 
+        // JLabel for ASCII art and hotel name
         JLabel asciiLabel = new JLabel(asciiArt, SwingConstants.CENTER);
         JLabel hotelNameLabel = new JLabel("<html>The hotel being managed is hotel " + hotelName + ".<br><br> <center>Select an option to update:</center></html>", SwingConstants.CENTER);
 
@@ -40,7 +51,7 @@ public class UpdateHotelAttributesView extends JFrame {
         JLabel messageLabel = new JLabel("", SwingConstants.CENTER);
         messageLabel.setForeground(Color.RED); // Set color for the message
 
-        // Create buttons
+        // Create buttons for various hotel management actions
         changeHotelNameButton = new JButton("Change Hotel Name");
         addRoomsButton = new JButton("Add Rooms");
         removeRoomsButton = new JButton("Remove Rooms");
@@ -84,7 +95,7 @@ public class UpdateHotelAttributesView extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 10, 10, 10); // Margin for each component
 
-        // Add buttons to the button panel
+        // Add buttons to the button panel using GridBagLayout for positioning
         gbc.gridx = 0;
         gbc.gridy = 0;
         buttonPanel.add(changeHotelNameButton, gbc);
@@ -137,6 +148,7 @@ public class UpdateHotelAttributesView extends JFrame {
         });
     }
 
+    // Getter methods for buttons to be used by controllers
     public JButton getChangeHotelNameButton() {
         return changeHotelNameButton;
     }
@@ -173,10 +185,15 @@ public class UpdateHotelAttributesView extends JFrame {
         return backToMainMenuButton;
     }
 
+    /**
+     * Main method to launch the UpdateHotelAttributesView for testing.
+     *
+     * @param args command line arguments (not used)
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             UpdateHotelAttributesView view = new UpdateHotelAttributesView("Sample Hotel");
-            view.setVisible(true);
+            view.setVisible(true); // Display the view
         });
     }
 }

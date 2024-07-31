@@ -2,13 +2,28 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * The HotelInfoController class handles user interactions for viewing information
+ * about a specific hotel, including high-level details, available rooms, booked
+ * rooms, individual room information, and reservation details.
+ */
 public class HotelInfoController {
-    private final HotelInfoView view;
-    private final HotelInfoModel model;
-    private final SelectHotelController selectHotelController;
-    private final SelectHotelView selectHotelView;
+    private final HotelInfoView view; // The view for displaying hotel information
+    private final HotelInfoModel model; // The model containing hotel data
+    private final SelectHotelController selectHotelController; // Controller for selecting a hotel
+    private final SelectHotelView selectHotelView; // View for selecting a hotel
 
-    public HotelInfoController(HotelInfoView view, HotelInfoModel model, SelectHotelController selectHotelController, SelectHotelView selectHotelView) {
+    /**
+     * Constructs a HotelInfoController with the specified view and model.
+     *
+     * @param view                    The view to display hotel information.
+     * @param model                   The model containing hotel data.
+     * @param selectHotelController    The controller for selecting a hotel.
+     * @param selectHotelView          The view for selecting a hotel.
+     */
+    public HotelInfoController(HotelInfoView view, HotelInfoModel model,
+                               SelectHotelController selectHotelController,
+                               SelectHotelView selectHotelView) {
         this.view = view;
         this.model = model;
         this.selectHotelController = selectHotelController;
@@ -16,30 +31,34 @@ public class HotelInfoController {
 
         // Add action listeners to buttons
         this.view.getHighLevelInfoButton().addActionListener(e -> viewHighLevelInfo());
-
         this.view.getAvailableRoomsButton().addActionListener(e -> viewAvailableRooms());
-
         this.view.getBookedRoomsButton().addActionListener(e -> viewBookedRooms());
-
         this.view.getRoomInfoButton().addActionListener(e -> viewRoomInfo());
-
         this.view.getReservationInfoButton().addActionListener(e -> viewReservationInfo());
 
         // Add action listeners for bottom buttons
         this.view.getBackToSelectionButton().addActionListener(e -> backToSelectionPage());
-
         this.view.getBackToMainMenuButton().addActionListener(e -> backToMainMenu());
     }
 
+    /**
+     * Displays high-level information about the hotel, including the hotel name,
+     * total number of rooms, and estimated monthly earnings.
+     */
     private void viewHighLevelInfo() {
         String hotelName = model.getHotel().getName();
         int totalRooms = model.getHotel().getRoomsList().size();
         double totalIncome = model.getTotalIncome();
+
         String message = String.format("Hotel Name: %s\nTotal Number of Rooms: %d\nEstimated Monthly Earnings: PHP%.2f",
                 hotelName, totalRooms, totalIncome);
         JOptionPane.showMessageDialog(view, message, "High-Level Information", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * Prompts the user to enter check-in and check-out dates and displays available
+     * rooms for the specified dates.
+     */
     private void viewAvailableRooms() {
         // Check if there are any reservations before prompting for input
         if (model.getReservations().isEmpty()) {
@@ -77,6 +96,7 @@ public class HotelInfoController {
                 message.append(room.getName()).append(" (").append(room.getType()).append(")\n");
             }
 
+            // Create a scrollable text area for displaying available rooms
             JTextArea textArea = new JTextArea(message.toString());
             textArea.setEditable(false);
             textArea.setLineWrap(true);
@@ -90,6 +110,10 @@ public class HotelInfoController {
         }
     }
 
+    /**
+     * Prompts the user to enter check-in and check-out dates and displays booked
+     * rooms for the specified dates.
+     */
     private void viewBookedRooms() {
         // Check if there are any reservations before prompting for input
         if (model.getReservations().isEmpty()) {
@@ -133,6 +157,7 @@ public class HotelInfoController {
                 return; // Return to the HotelInfo menu
             }
 
+            // Create a scrollable text area for displaying booked rooms
             JTextArea textArea = new JTextArea(message.toString());
             textArea.setEditable(false);
             textArea.setLineWrap(true);
@@ -146,6 +171,9 @@ public class HotelInfoController {
         }
     }
 
+    /**
+     * Prompts the user to select a room and displays detailed information about that room.
+     */
     private void viewRoomInfo() {
         ArrayList<Room> rooms = model.getHotel().getRoomsList();
 
@@ -174,6 +202,10 @@ public class HotelInfoController {
         }
     }
 
+    /**
+     * Prompts the user to select a reservation ID and displays detailed information
+     * about the corresponding reservation.
+     */
     private void viewReservationInfo() {
         ArrayList<Reservation> reservations = model.getReservations();
 
@@ -201,15 +233,17 @@ public class HotelInfoController {
         }
     }
 
-
-
-
-
+    /**
+     * Closes the current view and returns to the hotel selection page.
+     */
     private void backToSelectionPage() {
         view.dispose(); // Close the current view
         selectHotelView.setVisible(true); // Show the selection view again
     }
 
+    /**
+     * Closes the current view and returns to the main menu.
+     */
     private void backToMainMenu() {
         view.dispose(); // Close the current view
         selectHotelController.goBackToMainMenu(); // Show the main menu

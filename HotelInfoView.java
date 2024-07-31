@@ -3,6 +3,10 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * The HotelInfoView class represents the GUI for displaying hotel information,
+ * allowing users to view different types of information about a hotel.
+ */
 public class HotelInfoView extends JFrame {
     private final JButton highLevelInfoButton;
     private final JButton availableRoomsButton;
@@ -12,6 +16,11 @@ public class HotelInfoView extends JFrame {
     private final JButton backToSelectionButton;
     private final JButton backToMainMenuButton;
 
+    /**
+     * Constructs a HotelInfoView for the specified hotel.
+     *
+     * @param hotelName The name of the hotel to be displayed.
+     */
     public HotelInfoView(String hotelName) {
         setTitle("Hotel Information");
         setSize(670, 420); // Adjusted size to 670 x 420
@@ -119,34 +128,74 @@ public class HotelInfoView extends JFrame {
         });
     }
 
+    /**
+     * Returns the button for viewing high-level information.
+     *
+     * @return The high-level information button.
+     */
     public JButton getHighLevelInfoButton() {
         return highLevelInfoButton;
     }
 
+    /**
+     * Returns the button for viewing available rooms.
+     *
+     * @return The available rooms button.
+     */
     public JButton getAvailableRoomsButton() {
         return availableRoomsButton;
     }
 
+    /**
+     * Returns the button for viewing booked rooms.
+     *
+     * @return The booked rooms button.
+     */
     public JButton getBookedRoomsButton() {
         return bookedRoomsButton;
     }
 
+    /**
+     * Returns the button for viewing room information.
+     *
+     * @return The room information button.
+     */
     public JButton getRoomInfoButton() {
         return roomInfoButton;
     }
 
+    /**
+     * Returns the button for viewing reservation information.
+     *
+     * @return The reservation information button.
+     */
     public JButton getReservationInfoButton() {
         return reservationInfoButton;
     }
 
+    /**
+     * Returns the button for going back to hotel selection.
+     *
+     * @return The back to hotel selection button.
+     */
     public JButton getBackToSelectionButton() {
         return backToSelectionButton;
     }
 
+    /**
+     * Returns the button for going back to the main menu.
+     *
+     * @return The back to main menu button.
+     */
     public JButton getBackToMainMenuButton() {
         return backToMainMenuButton;
     }
 
+    /**
+     * The main method to run the HotelInfoView.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             HotelInfoView view = new HotelInfoView("Sample Hotel");
