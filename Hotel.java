@@ -107,21 +107,26 @@ public class Hotel {
 
 
     /**
-     * Removes a room from the hotel if it has no reservations.
+     * Removes multiple rooms from the hotel if they have no reservations.
      *
-     * @param room The room to remove.
+     * @param rooms The list of rooms to remove.
      *
-     * @return true if the room was successfully removed, false otherwise.
+     * @return A list of rooms that were successfully removed.
      */
-    public boolean removeRoom(Room room) {
-        // Check if the room has no reservations before removing it
-        if (room.getReservationsList().isEmpty()) {
-            roomsList.remove(room);
-            return true;
+    public List<Room> removeRooms(List<Room> rooms) {
+        List<Room> removedRooms = new ArrayList<>();
+
+        for (Room room : rooms) {
+            // Check if the room has no reservations before removing it
+            if (room.getReservationsList().isEmpty()) {
+                roomsList.remove(room);
+                removedRooms.add(room); // Add to the list of successfully removed rooms
+            }
         }
 
-        return false;
+        return removedRooms; // Return the list of removed rooms
     }
+
 
     /**
      * Updates the base price for all rooms in the hotel of a specific type if there are no reservations.
