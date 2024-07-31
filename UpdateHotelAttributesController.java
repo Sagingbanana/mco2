@@ -52,7 +52,7 @@ public class UpdateHotelAttributesController {
         this.view.getRemoveReservationButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Define action for removing a reservation
+                removeReservation();
             }
         });
 
@@ -288,6 +288,37 @@ public class UpdateHotelAttributesController {
             JOptionPane.showMessageDialog(view, "Cannot remove the hotel. There are active reservations.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    private void removeReservation() {
+        // Check if the selected hotel has any reservations
+        if (model.getHotel().getReservationsList().isEmpty()) {
+            JOptionPane.showMessageDialog(view, "There are currently no reservations in the selected hotel.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Exit if there are no reservations
+        }
+
+        String reservationId = JOptionPane.showInputDialog(view, "Enter the Reservation ID to remove:");
+
+        if (reservationId == null || reservationId.isEmpty()) {
+            JOptionPane.showMessageDialog(view, "Reservation ID cannot be empty.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Exit if no input
+        }
+
+        // Retrieve the reservation based on the ID
+        Reservation reservation = model.getReservationById(reservationId);
+        if (reservation == null) {
+            JOptionPane.showMessageDialog(view, "No reservation found with ID: " + reservationId, "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Exit if the reservation does not exist
+        }
+
+        // Attempt to cancel the reservation
+        boolean success = model.cancelReservation(reservation);
+        if (success) {
+            JOptionPane.showMessageDialog(view, "Reservation removed successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(view, "Failed to remove the reservation. It may not exist in the selected hotel.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 
     // Method to set the date price modifier
     private void setDatePriceModifier() {
